@@ -17,6 +17,13 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+
+# Functions ローカルテスト用
+$ $env:GOOGLE_APPLICATION_CREDENTIALS="mai-score.json"
+$ firebase emulators:start
+
+# Functions デプロイ
+$ firebase deploy --only functions
 ```
 
 For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
