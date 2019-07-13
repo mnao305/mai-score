@@ -1,7 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
 import NuxtConfiguration from '@nuxt/config'
+require('dotenv').config()
 
-const config: NuxtConfiguration = {
+interface nuxtConfg extends NuxtConfiguration {
+  env?: any
+}
+
+const config: nuxtConfg = {
   mode: 'universal',
   srcDir: 'client/',
   /*
@@ -48,7 +53,8 @@ const config: NuxtConfiguration = {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Axios module configuration
@@ -69,6 +75,15 @@ const config: NuxtConfiguration = {
       error: colors.deepOrange.accent4,
       success: colors.green.accent3
     }
+  },
+
+  env: {
+    API_KEY: process.env.API_KEY,
+    AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+    DATABASE_URL: process.env.DATABASE_URL,
+    PROJECT_ID: process.env.PROJECT_ID,
+    STORAGE_BUCKET: process.env.STORAGE_BUCKET,
+    MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID
   },
   /*
    ** Build configuration
