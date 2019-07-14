@@ -34,6 +34,7 @@ import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
 @Component({
   async asyncData({ params }) {
+    const userName = params.userName
     const scoreData: ScoreData[] = []
     const difficultyLevel = [
       'Basic',
@@ -45,24 +46,25 @@ import { ScoreData, GotScoreData } from '~/types'
     for (let i = 0; i < difficultyLevel.length; i++) {
       const snapShot = await db
         .collection('users')
-        .doc('l6aWFHMbrNhDnvLsHsrH')
-        .collection('scores')
-        .doc(difficultyLevel[i])
+        .where('userName', '==', userName)
         .get()
-        .catch((e) => {
-          console.error(e)
-        })
-      if (snapShot && snapShot.exists) {
-        const tmp = snapShot.data() as GotScoreData[]
+
+      const docs = await snapShot.docs[0]
+      if (docs && docs.exists) {
+        const tmp = await docs.ref
+          .collection('scores')
+          .doc(difficultyLevel[i])
+          .get()
+        const data = tmp.data() as GotScoreData[]
         scoreData.push(
-          ...Object.entries(tmp).map(([id, data]) => ({
+          ...Object.entries(data).map(([id, data]) => ({
             id,
             ...data
           }))
         )
       }
     }
-    const userName = params.userName
+
     return {
       userName,
       scoreData
