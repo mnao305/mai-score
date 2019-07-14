@@ -20,6 +20,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    '@typescript-eslint/no-unused-vars': 'error'
+    '@typescript-eslint/no-unused-vars': 'error',
+    'no-console': ["error", { allow: ["warn", "error"] }]
   }
 }
