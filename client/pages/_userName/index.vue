@@ -4,26 +4,29 @@
     <v-data-table :headers="headers" :items="scoreData" class="elevation-1">
       <template v-slot:items="props">
         <td>{{ props.item.title }}</td>
-        <td class="text-xs-right">{{ props.item.genre }}</td>
-        <td class="text-xs-right">{{ props.item.difficultyLevel }}</td>
-        <td class="text-xs-right">
+        <td>{{ props.item.genre }}</td>
+        <td>{{ props.item.difficultyLevel }}</td>
+        <td>
           {{
             Math.round(props.item.level) === props.item.level
               ? props.item.level
               : `${props.item.level - 0.5}+`
           }}
         </td>
-        <td class="text-xs-right">
+        <td>
           {{ props.item.type === 'deluxe' ? 'でらっくす' : 'スタンダード' }}
         </td>
-        <td class="text-xs-right">
+        <td>
           {{
             props.item.achievement != null ? `${props.item.achievement}%` : '-'
           }}
         </td>
-        <td class="text-xs-right">
-          {{ props.item.dxScore != null ? props.item.dxScore : '-' }}
+        <td>{{ props.item.rank || '-' }}</td>
+        <td>
+          {{ props.item.dxScore || '-' }}
         </td>
+        <td>{{ props.item.comboRank || '-' }}</td>
+        <td>{{ props.item.sync || '-' }}</td>
       </template>
     </v-data-table>
   </div>
@@ -73,16 +76,16 @@ import { ScoreData, GotScoreData } from '~/types'
 })
 export default class UserName extends Vue {
   headers = [
-    {
-      text: 'タイトル',
-      value: 'title'
-    },
+    { text: 'タイトル', value: 'title' },
     { text: 'ジャンル', value: 'genre' },
     { text: '難易度', value: 'difficultyLevel' },
     { text: 'レベル', value: 'level' },
     { text: '譜面タイプ', value: 'type' },
     { text: '達成率', value: 'achievement' },
-    { text: 'でらっくスコア', value: 'dxScore' }
+    { text: 'ランク', value: 'rank' },
+    { text: 'でらっくスコア', value: 'dxScore' },
+    { text: 'コンボ', value: 'comboRank' },
+    { text: 'SYNC', value: 'sync' }
   ]
 }
 </script>

@@ -6,6 +6,9 @@ export interface GotScoreData {
   level: number
   title: string
   type: string
+  rank: string | null
+  comboRank: string | null
+  sync: string | null
 }
 
 export interface ScoreData extends GotScoreData {
