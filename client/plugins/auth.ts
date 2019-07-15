@@ -5,15 +5,15 @@ const twitter = new firebase.auth.TwitterAuthProvider()
 const auth = {
   // Twitterサインイン
   twitterLogin() {
-    return new Promise<firebase.auth.UserCredential>((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       firebase
         .auth()
         .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
         .then(() => {
           firebase
             .auth()
-            .signInWithPopup(twitter)
-            .then((result) => resolve(result))
+            .signInWithRedirect(twitter)
+            .then(() => resolve())
             .catch((error) => reject(error))
         })
     })
