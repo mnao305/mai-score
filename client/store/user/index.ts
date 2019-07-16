@@ -1,5 +1,6 @@
 import { Getters, Mutations, Actions } from 'vuex'
 import { S, G, M, A } from './type'
+import { db } from '~/plugins/firestore'
 // ______________________________________________________
 //
 export const state = (): S => ({
@@ -13,15 +14,46 @@ export const getters: Getters<S, G> = {
 // ______________________________________________________
 //
 export const mutations: Mutations<S, M> = {
-  isAuthenticatedFlgChange(state, authFlg: boolean) {
+  isAuthenticatedFlgChange(state, authFlg) {
     state.isAuthenticatedFlg = authFlg
   }
 }
 // ______________________________________________________
 //
 export const actions: Actions<S, A, G, M> = {
-  login(ctx) {
-    ctx.commit('isAuthenticatedFlgChange', true)
+  async setUser(ctx, user) {
+    const providerData = user.providerData.map((v) => {
+      return { ...v }
+    })
+
+    try {
+      const doc = await db
+        .collection('users')
+        .doc(user.uid)
+        .get()
+
+      if (!doc.exists) {
+        const date = Date.now()
+        await db
+          .collection('users')
+          .doc(user.uid)
+          .set(
+            {
+              public: false,
+              displayName: null,
+              userID: user.uid,
+              email: user.email,
+              providerData: providerData,
+              _createdAt: date,
+              _updateAt: date
+            },
+            { merge: true }
+          )
+      }
+      ctx.commit('isAuthenticatedFlgChange', true)
+    } catch (error) {
+      console.error(error)
+    }
   },
   logout(ctx) {
     ctx.commit('isAuthenticatedFlgChange', false)
