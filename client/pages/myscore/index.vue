@@ -18,12 +18,18 @@
         </td>
         <td>
           {{
-            props.item.achievement != null ? `${props.item.achievement}%` : '-'
+            props.item.achievement != null
+              ? `${props.item.achievement[props.item.achievement.length - 1].score}%`
+              : '-'
           }}
         </td>
         <td>{{ props.item.rank || '-' }}</td>
         <td>
-          {{ props.item.dxScore || '-' }}
+          {{
+            props.item.dxScore != null
+              ? props.item.dxScore[props.item.dxScore.length - 1].score
+              : '-'
+          }}
         </td>
         <td>{{ props.item.comboRank || '-' }}</td>
         <td>{{ props.item.sync || '-' }}</td>
