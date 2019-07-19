@@ -90,6 +90,8 @@ export default class MyScore extends Vue {
         }
         this.scoreData = scoreData
       }
+    } else {
+      this.$router.push('/')
     }
   }
 }
