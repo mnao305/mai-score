@@ -11,7 +11,10 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "build:firebase": "npm run clean && npm run build && npm run copy",
+    "clean": "rm -rf public && rm -rf .nuxt",
+    "copy": "mkdir public && cp -R functions public/server && cp -R client/static public/client && cp -R .nuxt public/server && cp -R public/server/.nuxt/dist/client public/client/assets"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",

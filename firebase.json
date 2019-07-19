@@ -1,13 +1,17 @@
 {
   "functions": {
-    "predeploy": "npm --prefix \"$RESOURCE_DIR\" run build"
+    "source": "public/server"
   },
   "hosting": {
-    "public": "dist",
+    "public": "public/client",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+    "rewrites": [{
+      "source": "**",
+      "function": "ssr"
+    }]
   }
 }

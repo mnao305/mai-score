@@ -87,3 +87,6 @@ sw.*
 .DS_Store
 
 mai-score.json
+
+.firebase
+public
