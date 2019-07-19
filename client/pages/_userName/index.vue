@@ -50,6 +50,7 @@ import { ScoreData, GotScoreData } from '~/types'
       const snapShot = await db
         .collection('users')
         .where('userName', '==', userName)
+        .where('public', '==', true)
         .get()
 
       const docs = await snapShot.docs[0]
