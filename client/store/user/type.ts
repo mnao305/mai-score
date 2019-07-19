@@ -22,10 +22,10 @@ export interface RM {
 // ______________________________________________________
 //
 export interface A {
-  login: any
+  setUser: firebase.User
   logout: any
 }
 export interface RA {
-  'user/login': A['login']
+  'user/setUser': A['setUser']
   'user/logout': A['logout']
 }

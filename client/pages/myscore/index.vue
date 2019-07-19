@@ -18,18 +18,12 @@
         </td>
         <td>
           {{
-            props.item.achievement != null
-              ? `${props.item.achievement[props.item.achievement.length - 1].score}%`
-              : '-'
+            props.item.achievement != null ? `${props.item.achievement}%` : '-'
           }}
         </td>
         <td>{{ props.item.rank || '-' }}</td>
         <td>
-          {{
-            props.item.dxScore != null
-              ? props.item.dxScore[props.item.dxScore.length - 1].score
-              : '-'
-          }}
+          {{ props.item.dxScore || '-' }}
         </td>
         <td>{{ props.item.comboRank || '-' }}</td>
         <td>{{ props.item.sync || '-' }}</td>
@@ -41,47 +35,9 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
-@Component({
-  async asyncData({ params }) {
-    const userName = params.userName
-    const scoreData: ScoreData[] = []
-    const difficultyLevel = [
-      'Basic',
-      'Advanced',
-      'Expert',
-      'Master',
-      'ReMaster'
-    ]
-    for (let i = 0; i < difficultyLevel.length; i++) {
-      const snapShot = await db
-        .collection('users')
-        .where('userName', '==', userName)
-        .where('public', '==', true)
-        .get()
-
-      const docs = await snapShot.docs[0]
-      if (docs && docs.exists) {
-        const tmp = await docs.ref
-          .collection('scores')
-          .doc(difficultyLevel[i])
-          .get()
-        const data = tmp.data() as GotScoreData[]
-        scoreData.push(
-          ...Object.entries(data).map(([id, data]) => ({
-            id,
-            ...data
-          }))
-        )
-      }
-    }
-
-    return {
-      userName,
-      scoreData
-    }
-  }
-})
-export default class UserName extends Vue {
+import auth from '~/plugins/auth'
+@Component({})
+export default class MyScore extends Vue {
   headers = [
     { text: 'タイトル', value: 'title' },
     { text: 'ジャンル', value: 'genre' },
@@ -94,5 +50,41 @@ export default class UserName extends Vue {
     { text: 'コンボ', value: 'comboRank' },
     { text: 'SYNC', value: 'sync' }
   ]
+
+  scoreData: ScoreData[] = []
+
+  async created() {
+    const user = await auth.auth()
+
+    if (user) {
+      const scoreData: ScoreData[] = []
+      const difficultyLevel = [
+        'Basic',
+        'Advanced',
+        'Expert',
+        'Master',
+        'ReMaster'
+      ]
+      for (let i = 0; i < difficultyLevel.length; i++) {
+        const doc = await db
+          .collection('users')
+          .doc(user.uid)
+          .collection('scores')
+          .doc(difficultyLevel[i])
+          .get()
+
+        if (doc && doc.exists) {
+          const data = doc.data() as GotScoreData[]
+          scoreData.push(
+            ...Object.entries(data).map(([id, data]) => ({
+              id,
+              ...data
+            }))
+          )
+        }
+        this.scoreData = scoreData
+      }
+    }
+  }
 }
 </script>
