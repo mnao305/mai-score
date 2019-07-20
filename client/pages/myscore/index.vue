@@ -89,6 +89,7 @@ export default class MyScore extends Vue {
         }
       }
     } else {
+      this.$store.dispatch('user/logout')
       this.$router.push('/')
     }
   }
