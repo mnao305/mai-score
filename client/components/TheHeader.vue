@@ -12,7 +12,7 @@
         <v-list-tile @click="$router.push('/about')">
           <v-list-tile-title>About</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="logout">
+        <v-list-tile v-if="isAuthenticatedFlg" @click="logout">
           <v-list-tile-title>Logout</v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -22,9 +22,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import * as Vuex from 'vuex'
 import auth from '~/plugins/auth'
 @Component
 export default class TheHeader extends Vue {
+  $store!: Vuex.ExStore
+
+  get isAuthenticatedFlg() {
+    return this.$store.state.user.isAuthenticatedFlg
+  }
+
   logout() {
     auth.logout()
   }
