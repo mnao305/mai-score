@@ -1,6 +1,8 @@
 <template>
   <v-layout id="TheLoginForm" align-center justify-center column fill-height>
-    <v-btn @click="twitterLogin">Twitterログイン</v-btn>
+    <v-btn @click="twitterLogin">
+      Twitterで{{ RegistFlg ? '登録' : 'ログイン' }}
+    </v-btn>
     <v-form ref="form" v-model="valid" class="loginRegistForm" lazy-validation>
       <div class="loginForm">
         <v-text-field
