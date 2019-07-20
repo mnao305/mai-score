@@ -15,7 +15,9 @@
     "@nuxtjs/pwa": "^2.6.0",
     "@nuxtjs/vuetify": "0.5.5",
     "ts-node": "^8.3.0",
-    "vue-property-decorator": "^8.2.1"
+    "vue-property-decorator": "^8.2.1",
+    "js-cookie": "^2.2.0",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.1.6"
