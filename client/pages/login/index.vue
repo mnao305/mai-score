@@ -15,7 +15,9 @@ import auth from '~/plugins/auth'
 export default class LoginPage extends Vue {
   async created() {
     const data = await auth.auth()
-    if (!data) {
+    if (data) {
+      this.$router.push('/myscore')
+    } else {
       this.$store.dispatch('user/logout')
     }
   }
