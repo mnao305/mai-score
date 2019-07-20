@@ -44,7 +44,7 @@ const config: nuxtConfg = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/localStorage.ts'],
   /*
    ** Nuxt.js modules
    */
