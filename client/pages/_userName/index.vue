@@ -18,18 +18,12 @@
         </td>
         <td>
           {{
-            props.item.achievement != null
-              ? `${props.item.achievement[props.item.achievement.length - 1].score}%`
-              : '-'
+            props.item.achievement != null ? `${props.item.achievement}%` : '-'
           }}
         </td>
         <td>{{ props.item.rank || '-' }}</td>
         <td>
-          {{
-            props.item.dxScore != null
-              ? props.item.dxScore[props.item.dxScore.length - 1].score
-              : '-'
-          }}
+          {{ props.item.dxScore || '-' }}
         </td>
         <td>{{ props.item.comboRank || '-' }}</td>
         <td>{{ props.item.sync || '-' }}</td>
@@ -55,7 +49,7 @@ import { ScoreData, GotScoreData } from '~/types'
     for (let i = 0; i < difficultyLevel.length; i++) {
       const snapShot = await db
         .collection('users')
-        .where('userName', '==', userName)
+        .where('displayName', '==', userName)
         .where('public', '==', true)
         .get()
 
@@ -69,7 +63,13 @@ import { ScoreData, GotScoreData } from '~/types'
         scoreData.push(
           ...Object.entries(data).map(([id, data]) => ({
             id,
-            ...data
+            ...data,
+            achievement: data.achievements
+              ? data.achievements[data.achievements.length - 1].achievement
+              : null,
+            dxScore: data.dxScores
+              ? data.dxScores[data.dxScores.length - 1].dxScore
+              : null
           }))
         )
       }

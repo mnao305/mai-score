@@ -1,7 +1,7 @@
 export interface GotScoreData {
-  achievement: number | null
+  achievements: { achievement: number; date: number }[] | null
   difficultyLevel: string
-  dxScore: number | null
+  dxScores: { dxScore: number; date: number }[] | null
   genre: string
   level: number
   title: string

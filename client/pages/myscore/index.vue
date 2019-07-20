@@ -18,18 +18,12 @@
         </td>
         <td>
           {{
-            props.item.achievement != null
-              ? `${props.item.achievement[props.item.achievement.length - 1].score}%`
-              : '-'
+            props.item.achievement != null ? `${props.item.achievement}%` : '-'
           }}
         </td>
         <td>{{ props.item.rank || '-' }}</td>
         <td>
-          {{
-            props.item.dxScore != null
-              ? props.item.dxScore[props.item.dxScore.length - 1].score
-              : '-'
-          }}
+          {{ props.item.dxScore || '-' }}
         </td>
         <td>{{ props.item.comboRank || '-' }}</td>
         <td>{{ props.item.sync || '-' }}</td>
@@ -63,7 +57,6 @@ export default class MyScore extends Vue {
     const user = await auth.auth()
 
     if (user) {
-      const scoreData: ScoreData[] = []
       const difficultyLevel = [
         'Basic',
         'Advanced',
@@ -80,15 +73,20 @@ export default class MyScore extends Vue {
           .get()
 
         if (doc && doc.exists) {
-          const data = doc.data() as GotScoreData[]
-          scoreData.push(
+          const data = (await doc.data()) as GotScoreData[]
+          this.scoreData.push(
             ...Object.entries(data).map(([id, data]) => ({
               id,
-              ...data
+              ...data,
+              achievement: data.achievements
+                ? data.achievements[data.achievements.length - 1].achievement
+                : null,
+              dxScore: data.dxScores
+                ? data.dxScores[data.dxScores.length - 1].dxScore
+                : null
             }))
           )
         }
-        this.scoreData = scoreData
       }
     } else {
       this.$router.push('/')
