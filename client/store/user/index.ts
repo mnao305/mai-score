@@ -40,15 +40,22 @@ export const actions: Actions<S, A, G, M> = {
           .set(
             {
               public: false,
-              displayName: null,
-              userID: user.uid,
-              email: user.email,
-              providerData: providerData,
-              _createdAt: date,
-              _updateAt: date
+              displayName: null
             },
             { merge: true }
           )
+        await db
+          .collection('users')
+          .doc(user.uid)
+          .collection('secure')
+          .doc(user.uid)
+          .set({
+            userID: user.uid,
+            email: user.email,
+            providerData: providerData,
+            _createdAt: date,
+            _updateAt: date
+          })
       }
       ctx.commit('isAuthenticatedFlgChange', true)
     } catch (error) {
