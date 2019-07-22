@@ -1,10 +1,18 @@
 <template>
   <div>
     <!-- <p>{{ userName }}</p> -->
+    <v-text-field
+      v-model="search"
+      append-icon="search"
+      class="scoreSearch"
+      label="Search"
+      single-line
+      hide-details
+    ></v-text-field>
     <v-data-table
       :headers="headers"
       :items="scoreData"
-      class="elevation-1"
+      :search="search"
       :rows-per-page-items="[
         25,
         50,
@@ -106,6 +114,8 @@ export default class UserName extends Vue {
     { text: 'SYNC', value: 'sync' }
   ]
 
+  search = ''
+
   async created() {
     const data = await auth.auth()
     if (!data) {
@@ -114,3 +124,10 @@ export default class UserName extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.scoreSearch {
+  max-width: 400px;
+  margin: 0 0 15px auto;
+}
+</style>

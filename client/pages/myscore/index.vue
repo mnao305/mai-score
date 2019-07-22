@@ -1,10 +1,18 @@
 <template>
   <div>
     <!-- <p>{{ userName }}</p> -->
+    <v-text-field
+      v-model="search"
+      append-icon="search"
+      class="scoreSearch"
+      label="Search"
+      single-line
+      hide-details
+    ></v-text-field>
     <v-data-table
       :headers="headers"
       :items="scoreData"
-      class="elevation-1"
+      :search="search"
       :rows-per-page-items="[
         25,
         50,
@@ -63,6 +71,8 @@ export default class MyScore extends Vue {
 
   scoreData: ScoreData[] = []
 
+  search = ''
+
   async created() {
     const user = await auth.auth()
 
@@ -105,3 +115,10 @@ export default class MyScore extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.scoreSearch {
+  max-width: 400px;
+  margin: 0 0 15px auto;
+}
+</style>
