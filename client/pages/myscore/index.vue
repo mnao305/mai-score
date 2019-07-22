@@ -1,7 +1,17 @@
 <template>
   <div>
     <!-- <p>{{ userName }}</p> -->
-    <v-data-table :headers="headers" :items="scoreData" class="elevation-1">
+    <v-data-table
+      :headers="headers"
+      :items="scoreData"
+      class="elevation-1"
+      :rows-per-page-items="[
+        25,
+        50,
+        100,
+        { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }
+      ]"
+    >
       <template v-slot:items="props">
         <td>{{ props.item.title }}</td>
         <td>{{ props.item.genre }}</td>
