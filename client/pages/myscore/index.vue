@@ -51,10 +51,51 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+// import * as Cookies from 'js-cookie'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
 import auth from '~/plugins/auth'
-@Component({})
+@Component({
+  async asyncData({ store }) {
+    const scoreData: ScoreData[] = []
+    const difficultyLevel = [
+      'Basic',
+      'Advanced',
+      'Expert',
+      'Master',
+      'ReMaster'
+    ]
+
+    for (let i = 0; i < difficultyLevel.length; i++) {
+      const doc = await db
+        .collection('users')
+        .doc(store.state.user.uid)
+        .collection('scores')
+        .doc(difficultyLevel[i])
+        .get()
+
+      if (doc && doc.exists) {
+        const data = (await doc.data()) as GotScoreData[]
+        scoreData.push(
+          ...Object.entries(data).map(([id, data]) => ({
+            id,
+            ...data,
+            achievement: data.achievements
+              ? data.achievements[data.achievements.length - 1].achievement
+              : null,
+            dxScore: data.dxScores
+              ? data.dxScores[data.dxScores.length - 1].dxScore
+              : null
+          }))
+        )
+      }
+    }
+
+    return {
+      scoreData
+    }
+  }
+})
 export default class MyScore extends Vue {
   headers = [
     { text: 'タイトル', value: 'title' },
@@ -69,46 +110,12 @@ export default class MyScore extends Vue {
     { text: 'SYNC', value: 'sync' }
   ]
 
-  scoreData: ScoreData[] = []
-
   search = ''
 
   async created() {
     const user = await auth.auth()
 
-    if (user) {
-      const difficultyLevel = [
-        'Basic',
-        'Advanced',
-        'Expert',
-        'Master',
-        'ReMaster'
-      ]
-      for (let i = 0; i < difficultyLevel.length; i++) {
-        const doc = await db
-          .collection('users')
-          .doc(user.uid)
-          .collection('scores')
-          .doc(difficultyLevel[i])
-          .get()
-
-        if (doc && doc.exists) {
-          const data = (await doc.data()) as GotScoreData[]
-          this.scoreData.push(
-            ...Object.entries(data).map(([id, data]) => ({
-              id,
-              ...data,
-              achievement: data.achievements
-                ? data.achievements[data.achievements.length - 1].achievement
-                : null,
-              dxScore: data.dxScores
-                ? data.dxScores[data.dxScores.length - 1].dxScore
-                : null
-            }))
-          )
-        }
-      }
-    } else {
+    if (!user) {
       this.$store.dispatch('user/logout')
       this.$router.push('/')
     }
