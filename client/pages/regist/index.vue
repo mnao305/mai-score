@@ -15,9 +15,7 @@ import auth from '~/plugins/auth'
 export default class RegistPage extends Vue {
   async created() {
     const data = await auth.auth()
-    if (data) {
-      this.$router.push('/myscore')
-    } else {
+    if (!data) {
       this.$store.dispatch('user/logout')
     }
   }

@@ -59,6 +59,10 @@ const config: nuxtConfg = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv'
   ],
+
+  router: {
+    middleware: ['authenticated']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
