@@ -2,6 +2,7 @@
 //
 export interface S {
   isAuthenticatedFlg: boolean
+  uid: string
 }
 // ______________________________________________________
 //
@@ -15,9 +16,11 @@ export interface RG {
 //
 export interface M {
   isAuthenticatedFlgChange: boolean
+  setUID: string
 }
 export interface RM {
   'user/isAuthenticatedFlgChange': M['isAuthenticatedFlgChange']
+  'user/setUID': M['setUID']
 }
 // ______________________________________________________
 //

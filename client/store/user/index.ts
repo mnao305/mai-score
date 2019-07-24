@@ -4,7 +4,8 @@ import { db } from '~/plugins/firestore'
 // ______________________________________________________
 //
 export const state = (): S => ({
-  isAuthenticatedFlg: false
+  isAuthenticatedFlg: false,
+  uid: ''
 })
 // ______________________________________________________
 //
@@ -16,6 +17,9 @@ export const getters: Getters<S, G> = {
 export const mutations: Mutations<S, M> = {
   isAuthenticatedFlgChange(state, authFlg) {
     state.isAuthenticatedFlg = authFlg
+  },
+  setUID(state, uid) {
+    state.uid = uid
   }
 }
 // ______________________________________________________
@@ -58,11 +62,13 @@ export const actions: Actions<S, A, G, M> = {
           })
       }
       ctx.commit('isAuthenticatedFlgChange', true)
+      ctx.commit('setUID', user.uid)
     } catch (error) {
       console.error(error)
     }
   },
   logout(ctx) {
     ctx.commit('isAuthenticatedFlgChange', false)
+    ctx.commit('setUID', '')
   }
 }
