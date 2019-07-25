@@ -24,16 +24,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import auth from '~/plugins/auth'
 @Component
-export default class IndexPage extends Vue {
-  async created() {
-    const data = await auth.auth()
-    if (!data) {
-      this.$store.dispatch('user/logout')
-    }
-  }
-}
+export default class IndexPage extends Vue {}
 </script>
 
 <style lang="scss" scoped>

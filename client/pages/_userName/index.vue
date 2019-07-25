@@ -53,7 +53,6 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
-import auth from '~/plugins/auth'
 @Component({
   async asyncData({ params }) {
     const userName = params.userName
@@ -115,13 +114,6 @@ export default class UserName extends Vue {
   ]
 
   search = ''
-
-  async created() {
-    const data = await auth.auth()
-    if (!data) {
-      this.$store.dispatch('user/logout')
-    }
-  }
 }
 </script>
 

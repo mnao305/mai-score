@@ -51,10 +51,8 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-// import * as Cookies from 'js-cookie'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
-import auth from '~/plugins/auth'
 @Component({
   async asyncData({ store }) {
     const scoreData: ScoreData[] = []
@@ -65,6 +63,11 @@ import auth from '~/plugins/auth'
       'Master',
       'ReMaster'
     ]
+
+    console.warn(store.state.user.uid)
+    if (!store.state.user.uid) {
+      return
+    }
 
     for (let i = 0; i < difficultyLevel.length; i++) {
       const doc = await db
@@ -111,15 +114,6 @@ export default class MyScore extends Vue {
   ]
 
   search = ''
-
-  async created() {
-    const user = await auth.auth()
-
-    if (!user) {
-      this.$store.dispatch('user/logout')
-      this.$router.push('/')
-    }
-  }
 }
 </script>
 
