@@ -34,6 +34,8 @@ export default class TheHeader extends Vue {
 
   logout() {
     auth.logout()
+    this.$store.dispatch('user/logout')
+    this.$router.push('/')
   }
 }
 </script>
