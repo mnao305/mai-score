@@ -96,7 +96,7 @@ export default class TheLoginForm extends Vue {
     try {
       const data = await auth.mailRegist(this.email, this.passwd)
       if (data.user) {
-        this.$store.dispatch('user/setUser', data.user)
+        await this.$store.dispatch('user/setUser', data.user)
         this.$router.push('/myscore')
       } else {
         throw new Error()
@@ -113,10 +113,12 @@ export default class TheLoginForm extends Vue {
     }
     try {
       const data = await auth.mailLogin(this.email, this.passwd)
-      // eslint-disable-next-line no-console
-      console.log(data)
-      this.$store.commit('user/isAuthenticatedFlgChange', true)
-      this.$router.push('/myscore')
+      if (data.user) {
+        await this.$store.dispatch('user/setUser', data.user)
+        this.$router.push('/myscore')
+      } else {
+        throw new Error()
+      }
     } catch (error) {
       this.isErrorFlg = true
       console.error(error)
