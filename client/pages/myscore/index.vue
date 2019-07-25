@@ -64,11 +64,6 @@ import { ScoreData, GotScoreData } from '~/types'
       'ReMaster'
     ]
 
-    console.warn(store.state.user.uid)
-    if (!store.state.user.uid) {
-      return
-    }
-
     for (let i = 0; i < difficultyLevel.length; i++) {
       const doc = await db
         .collection('users')
