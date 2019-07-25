@@ -84,7 +84,7 @@ export default class TheLoginForm extends Vue {
   async beforeMount() {
     const data = await auth.getRedirectResult()
     if (data.user) {
-      this.$store.dispatch('user/setUser', data.user)
+      await this.$store.dispatch('user/setUser', data.user)
       this.$router.push('/myscore')
     }
   }
