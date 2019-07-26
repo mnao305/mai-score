@@ -17,7 +17,8 @@
     "ts-node": "^8.3.0",
     "vue-property-decorator": "^8.2.1",
     "js-cookie": "^2.2.0",
-    "vuex-persistedstate": "^2.5.4"
+    "vuex-persistedstate": "^2.5.4",
+    "cookie-universal-nuxt": "^2.0.16"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.1.6"

@@ -57,7 +57,8 @@ const config: nuxtConfg = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'cookie-universal-nuxt'
   ],
 
   router: {
