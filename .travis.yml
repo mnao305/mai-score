@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - '10'
+install:
+  - npm install -g firebase-tools
+  - npm install
+  - npm install --prefix ./functions
+script:
+  - npm run lint
+  - npm run build:firebase
+deploy:
+  - provider: firebase
+    skip_cleanup: true
+    on:
+      branch: master
+      tags: true
+  - token:
+    secure: "2OvkvvsNemCodGTSjwSg9LvY+RYCKFHUpD1lIxsobe20oUYlShEqs0qjLB7dmI4K8SNztd8y7Z6y5Kjadt11xFcF1+ufski6agilF/jXvWkjn2GsMVMXnr0X0GBT2KyOzV+lLNY2B25mFI9JcJj9cnfpHbpgxnEZAgaYrvLgdNGmtOZGo4jRIoK1YTtFu2rJeFTlQ+PmBJKm9iDm3CvpG2hhI1lMWBmIUp6n45mmYNxiAYTHQ4m98HGbp/s7B+r7F4Vg0GLTe/nySWpquPmhJmFAMfWN9GW2dJLce+2bCb/jOaTk3ZWAoRKrSrzpEEzTVBrdd2Wg3DlYPsxEZ0qkg7Gyb2yYX0N/SGPsaKitcNUyGJsuvwe+0RohHPB7xJMXkwGqs5/qMBPaAMsRMInzEcmUtts0g4sjaKC4KOyQaIn9et+DeamRo9hEp8TzWesa1O/m3ivqeYsxnR775RCs3OG8rapohTZzFDbIdw+14LHTHdN4h5e+kpd9chFmBEGDniAjB10uEHq5n+cPfvAA/XzwS2dp1iNPYOhwG2WNH3tpqT0fHsoRGtdxEAtCuynCNHEyWONRupPAd2VD8DMT6Hdw/htD2Fnt4YV1oUamSWfW5+7Tm0q5o2l5dI736V87fziRE+8cFnGeLEEHlK1Jw68pj0ff7M8vbj0VEsXCvyA="
