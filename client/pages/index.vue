@@ -1,7 +1,10 @@
 <template>
   <div id="indexPage">
     <h2>舞スコア</h2>
-    <p>maimaiでらっくす用のスコア管理ツールです。</p>
+    <p>
+      maimaiでらっくす用のスコア管理ツールです。<br />
+      <a @click="$router.push('/about')">このアプリについて詳しく→</a>
+    </p>
     <div class="indexBtns">
       <v-btn
         class="loginRegistBtn"
