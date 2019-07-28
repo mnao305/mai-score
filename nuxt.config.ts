@@ -58,7 +58,13 @@ const config: nuxtConfg = {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-57438486-7'
+      }
+    ]
   ],
 
   router: {
