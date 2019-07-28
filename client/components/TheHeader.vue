@@ -5,16 +5,22 @@
     >
     <v-spacer />
     <v-menu offset-y>
-      <v-btn slot="activator" icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
+      <template v-slot:activator="{ on }">
+        <v-btn slot="activator" icon v-on="on">
+          <v-icon>more_vert</v-icon>
+        </v-btn>
+      </template>
       <v-list>
-        <v-list-tile @click="$router.push('/about')">
-          <v-list-tile-title>About</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile v-if="isAuthenticatedFlg" @click="logout">
-          <v-list-tile-title>Logout</v-list-tile-title>
-        </v-list-tile>
+        <v-list-item @click="$router.push('/about')">
+          <v-list-item-title>
+            About
+          </v-list-item-title>
+        </v-list-item>
+        <v-list-item v-if="isAuthenticatedFlg" @click="logout">
+          <v-list-item-title>
+            Logout
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
   </v-app-bar>
