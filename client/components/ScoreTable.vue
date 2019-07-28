@@ -12,38 +12,47 @@
       :headers="headers"
       :items="scoreData"
       :search="search"
-      :rows-per-page-items="[
-        25,
-        50,
-        100,
-        { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }
-      ]"
+      multi-sort
+      :score-items="scoreData"
+      :items-per-page="50"
+      :footer-props="{
+        itemsPerPageOptions: [50, 100, 250, -1]
+      }"
+      :loading="tableLoadFlg"
+      :sort-desc="[true, false]"
     >
-      <template v-slot:items="props">
-        <td>{{ props.item.title }}</td>
-        <td>{{ props.item.genre }}</td>
-        <td>{{ props.item.difficultyLevel }}</td>
+      <template v-slot:item.level="{ item }">
         <td>
           {{
-            Math.round(props.item.level) === props.item.level
-              ? props.item.level
-              : `${props.item.level - 0.5}+`
+            Math.round(item.level) === item.level
+              ? item.level
+              : `${item.level - 0.5}+`
           }}
         </td>
+      </template>
+      <template v-slot:item.type="{ item }">
         <td>
-          {{ props.item.type === 'deluxe' ? 'でらっくす' : 'スタンダード' }}
+          {{ item.type === 'deluxe' ? 'でらっくす' : 'スタンダード' }}
         </td>
+      </template>
+      <template v-slot:item.achievement="{ item }">
         <td>
-          {{
-            props.item.achievement != null ? `${props.item.achievement}%` : '-'
-          }}
+          {{ item.achievement != null ? `${item.achievement}%` : '-' }}
         </td>
-        <td>{{ props.item.rank || '-' }}</td>
+      </template>
+      <template v-slot:item.rank="{ item }">
+        <td>{{ item.rank || '-' }}</td>
+      </template>
+      <template v-slot:item.dxScore="{ item }">
         <td>
-          {{ props.item.dxScore || '-' }}
+          {{ item.dxScore || '-' }}
         </td>
-        <td>{{ props.item.comboRank || '-' }}</td>
-        <td>{{ props.item.sync || '-' }}</td>
+      </template>
+      <template v-slot:item.comboRank="{ item }">
+        <td>{{ item.comboRank || '-' }}</td>
+      </template>
+      <template v-slot:item.sync="{ item }">
+        <td>{{ item.sync || '-' }}</td>
       </template>
     </v-data-table>
   </div>
@@ -55,6 +64,8 @@ import { ScoreData } from '~/types'
 @Component
 export default class ScoreTable extends Vue {
   @Prop() scoreData?: ScoreData[]
+
+  tableLoadFlg = true
 
   headers = [
     { text: 'タイトル', value: 'title' },
@@ -70,6 +81,10 @@ export default class ScoreTable extends Vue {
   ]
 
   search = ''
+
+  mounted() {
+    this.tableLoadFlg = false
+  }
 }
 </script>
 
