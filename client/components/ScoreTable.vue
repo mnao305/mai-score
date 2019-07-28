@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="scoreData">
     <v-text-field
       v-model="search"
       append-icon="search"
@@ -88,9 +88,15 @@ export default class ScoreTable extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.scoreSearch {
-  max-width: 400px;
-  margin: 0 0 15px auto;
+<style lang="scss">
+.scoreData {
+  .scoreSearch {
+    max-width: 400px;
+    margin: 0 0 15px auto;
+  }
+
+  table > tbody > tr:nth-child(odd) {
+    background-color: #e0f7fa !important;
+  }
 }
 </style>
