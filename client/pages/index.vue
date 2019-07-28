@@ -2,23 +2,25 @@
   <div id="indexPage">
     <h2>舞スコア</h2>
     <p>maimaiでらっくす用のスコア管理ツールです。</p>
-    <v-btn
-      class="loginRegistBtn"
-      outline
-      color="cyan darken-4"
-      @click="$router.push('/login')"
-    >
-      ログイン
-    </v-btn>
-    <br />
-    <v-btn
-      class="loginRegistBtn"
-      outline
-      color="cyan darken-4"
-      @click="$router.push('/regist')"
-    >
-      登録
-    </v-btn>
+    <div class="indexBtns">
+      <v-btn
+        class="loginRegistBtn"
+        outlined
+        color="cyan darken-4"
+        @click="$router.push('/login')"
+      >
+        ログイン
+      </v-btn>
+      <br />
+      <v-btn
+        class="loginRegistBtn"
+        outlined
+        color="cyan darken-4"
+        @click="$router.push('/regist')"
+      >
+        登録
+      </v-btn>
+    </div>
   </div>
 </template>
 
@@ -31,8 +33,13 @@ export default class IndexPage extends Vue {}
 <style lang="scss" scoped>
 #indexPage {
   text-align: center;
-  .loginRegistBtn {
+  .indexBtns {
+    margin: 0 auto;
     width: 200px;
+    .loginRegistBtn {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
 }
 </style>
