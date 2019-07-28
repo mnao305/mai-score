@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar clipped-left color="cyan lighten-4" app>
+  <v-app-bar clipped-left color="cyan lighten-4" app>
     <v-toolbar-title style="cursor: pointer;" @click="$router.push('/')"
       >舞スコア</v-toolbar-title
     >
@@ -17,7 +17,7 @@
         </v-list-tile>
       </v-list>
     </v-menu>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script lang="ts">
