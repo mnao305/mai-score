@@ -32,7 +32,7 @@
       </template>
       <template v-slot:item.type="{ item }">
         <td>
-          {{ item.type === 'deluxe' ? 'でらっくす' : 'スタンダード' }}
+          {{ item.type === 'deluxe' ? 'DX' : 'Std' }}
         </td>
       </template>
       <template v-slot:item.achievement="{ item }">
@@ -69,15 +69,15 @@ export default class ScoreTable extends Vue {
 
   headers = [
     { text: 'タイトル', value: 'title' },
-    { text: 'ジャンル', value: 'genre' },
-    { text: '難易度', value: 'difficultyLevel' },
-    { text: 'レベル', value: 'level' },
-    { text: '譜面タイプ', value: 'type' },
-    { text: '達成率', value: 'achievement' },
-    { text: 'ランク', value: 'rank' },
-    { text: 'でらっくスコア', value: 'dxScore' },
-    { text: 'コンボ', value: 'comboRank' },
-    { text: 'SYNC', value: 'sync' }
+    { text: 'ジャンル', value: 'genre', width: 190 },
+    { text: '難易度', value: 'difficultyLevel', width: 105 },
+    { text: 'レベル', value: 'level', width: 105 },
+    { text: '譜面', value: 'type', width: 95 },
+    { text: '達成率', value: 'achievement', width: 135 },
+    { text: 'ランク', value: 'rank', width: 105 },
+    { text: 'DXスコア', value: 'dxScore', width: 120 },
+    { text: 'コンボ', value: 'comboRank', width: 105 },
+    { text: 'SYNC', value: 'sync', width: 100 }
   ]
 
   search = ''
