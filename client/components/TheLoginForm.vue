@@ -1,6 +1,6 @@
 <template>
   <v-layout id="TheLoginForm" align-center justify-center column fill-height>
-    <v-btn @click="twitterLogin">
+    <v-btn class="twitterLoginBtn" outlined @click="twitterLogin">
       Twitterで{{ RegistFlg ? '登録' : 'ログイン' }}
     </v-btn>
     <v-form ref="form" v-model="valid" class="loginRegistForm" lazy-validation>
@@ -20,12 +20,22 @@
           :type="showPasswdFlg ? 'text' : 'password'"
           @click:append="showPasswdFlg = !showPasswdFlg"
         ></v-text-field>
+        <v-text-field
+          v-if="RegistFlg"
+          v-model="confirmationPasswd"
+          class="loginFormInput"
+          label="パスワード確認"
+          :rules="[rules.required, rules.counter, rules.confirmation]"
+          :append-icon="showPasswdFlg ? 'visibility' : 'visibility_off'"
+          :type="showConfirmationPasswdFlg ? 'text' : 'password'"
+          @click:append="showConfirmationPasswdFlg = !showConfirmationPasswdFlg"
+        ></v-text-field>
         <v-layout>
           <v-spacer />
           <v-btn
             v-if="RegistFlg"
             class="mailRegistBtn"
-            outline
+            outlined
             color="indigo"
             :disabled="!valid"
             @click="mailRegistration"
@@ -34,7 +44,7 @@
           <v-btn
             v-else
             class="mailLoginBtn"
-            outline
+            outlined
             color="indigo"
             :disabled="!valid"
             @click="mailLogin"
@@ -42,7 +52,7 @@
           >
         </v-layout>
       </div>
-      <v-alert :value="isErrorFlg" type="error" class="errorMessage" outline>
+      <v-alert :value="isErrorFlg" type="error" class="errorMessage" outlined>
         {{ RegistFlg ? '登録' : 'ログイン' }}に失敗しました。
       </v-alert>
     </v-form>
@@ -64,7 +74,11 @@ export default class TheLoginForm extends Vue {
 
   passwd = ''
 
+  confirmationPasswd = ''
+
   showPasswdFlg = false
+
+  showConfirmationPasswdFlg = false
 
   rules = {
     required: (value) => !!value || '必須項目です',
@@ -72,6 +86,9 @@ export default class TheLoginForm extends Vue {
     email: (value) => {
       const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return pattern.test(value) || 'メールアドレスの形式が間違っています'
+    },
+    confirmation: () => {
+      return this.confirmationCheck() || '同じパスワードを再入力してください'
     }
   }
 
@@ -124,22 +141,30 @@ export default class TheLoginForm extends Vue {
       console.error(error)
     }
   }
+
+  confirmationCheck() {
+    return this.passwd === this.confirmationPasswd
+  }
 }
 </script>
 
 <style scoped lang="scss">
 #TheLoginForm {
+  .twitterLoginBtn {
+    margin: 20px;
+  }
   .loginRegistForm {
-    width: 260px;
+    width: 300px;
     .loginForm {
       .loginFormInput {
         height: 70px;
       }
     }
     .errorMessage {
+      margin-top: 15px;
       position: fixed;
-      width: 260px;
-      left: calc(50% - 260px / 2);
+      width: 300px;
+      left: calc(50% - 300px / 2);
     }
   }
 }
