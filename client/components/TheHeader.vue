@@ -16,6 +16,14 @@
             About
           </v-list-item-title>
         </v-list-item>
+        <v-list-item
+          v-if="isAuthenticatedFlg"
+          @click="$router.push('/setting')"
+        >
+          <v-list-item-title>
+            Setting
+          </v-list-item-title>
+        </v-list-item>
         <v-list-item v-if="isAuthenticatedFlg" @click="logout">
           <v-list-item-title>
             Logout
