@@ -4,7 +4,7 @@ node_js:
 install:
   - npm install -g firebase-tools
   - npm install
-  - npm install --prefix ./functions
+  - cd ./functions && npm install && cd ../
 script:
   - npm run lint
   - npm run build:firebase
