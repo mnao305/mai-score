@@ -35,7 +35,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { db } from '~/plugins/firestore'
 
 interface publicUserData {
-  displayName: string | null
+  displayName: string
   public: boolean
 }
 @Component({
@@ -120,7 +120,7 @@ export default class SettingPage extends Vue {
         .set(
           {
             public: this.publicData,
-            displayName: this.displayName || null
+            displayName: this.displayName
           },
           { merge: true }
         )

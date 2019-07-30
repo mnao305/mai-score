@@ -44,7 +44,7 @@ export const actions: Actions<S, A, G, M> = {
           .set(
             {
               public: false,
-              displayName: null
+              displayName: ''
             },
             { merge: true }
           )
