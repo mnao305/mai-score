@@ -98,6 +98,21 @@ export default class SettingPage extends Vue {
       return
     }
     try {
+      if (this.displayName) {
+        const snapShot = await db
+          .collection('users')
+          .where('displayName', '==', this.displayName)
+          .get()
+        const docs = await snapShot.docs[0]
+
+        if (docs && docs.exists && docs.id !== this.$store.state.user.uid) {
+          const tmp = docs.data()
+          if (tmp.displayName === this.displayName) {
+            this.message = 'その表示名は既に使われています'
+            return
+          }
+        }
+      }
       const uid = this.$store.state.user.uid
       await db
         .collection('users')
