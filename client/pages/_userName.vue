@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <p>{{ userName }}</p> -->
+    <p>{{ userName }}さんのスコア</p>
     <score-table :score-data="scoreData" />
   </div>
 </template>
