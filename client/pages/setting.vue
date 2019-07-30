@@ -9,8 +9,8 @@
       <v-text-field
         v-model="displayName"
         class="loginFormInput"
-        label="表示名"
-        :rules="[rules.name]"
+        label="表示名(40文字まで)"
+        :rules="[rules.name, rules.counter]"
       ></v-text-field>
       <h5 class="headline">公開設定</h5>
       <p>
@@ -60,7 +60,7 @@ interface publicUserData {
 export default class SettingPage extends Vue {
   rules = {
     required: (value) => !!value || '必須項目です',
-    counter: (value) => value.length >= 8 || 'パスワードは8文字以上必要です',
+    counter: (value) => value.length <= 40 || '表示名は40文字までです',
     email: (value) => {
       const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return pattern.test(value) || 'メールアドレスの形式が間違っています'
