@@ -56,13 +56,18 @@
         {{ RegistFlg ? '登録' : 'ログイン' }}に失敗しました。
       </v-alert>
     </v-form>
+    <Loading v-if="loadFlg" />
   </v-layout>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import * as Vuex from 'vuex'
 import auth from '~/plugins/auth'
-@Component
+@Component({
+  components: {
+    Loading: () => import('~/components/Loading.vue')
+  }
+})
 export default class TheLoginForm extends Vue {
   $store!: Vuex.ExStore
 
@@ -94,6 +99,8 @@ export default class TheLoginForm extends Vue {
 
   isErrorFlg = false
 
+  loadFlg = true
+
   twitterLogin() {
     auth.twitterLogin()
   }
@@ -103,7 +110,9 @@ export default class TheLoginForm extends Vue {
     if (data.user) {
       await this.$store.dispatch('user/setUser', data.user)
       this.$router.push('/myscore')
+      return
     }
+    this.loadFlg = false
   }
 
   async mailRegistration() {
