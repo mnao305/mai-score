@@ -1,19 +1,22 @@
 <template>
   <div class="settingPage">
-    <h4 class="display-1">設定</h4>
+    <h4 class="display-1"><v-icon class="h4-icon">mdi-settings</v-icon>設定</h4>
     <v-form ref="form" v-model="valid" class="loginRegistForm" lazy-validation>
-      <h5 class="headline">表示名</h5>
+      <h5 class="headline">
+        <v-icon>mdi-account-badge-horizontal-outline</v-icon>
+        表示名
+      </h5>
       <p>
         '/設定した名前'という形のURLにアクセスすると表示できるようになります。
       </p>
       <v-text-field
         v-model="displayName"
-        class="loginFormInput"
+        class="inputDisplayName"
         label="表示名(40文字まで)"
         counter="40"
         :rules="[rules.name, rules.counter]"
       ></v-text-field>
-      <h5 class="headline">公開設定</h5>
+      <h5 class="headline"><v-icon>mdi-key-outline</v-icon>公開設定</h5>
       <p>
         表示名を設定し、これを公開設定にすればスコアデータを一般公開できます。
       </p>
@@ -136,8 +139,23 @@ export default class SettingPage extends Vue {
 
 <style lang="scss" scoped>
 .settingPage {
-  margin: 0 auto;
-  text-align: center;
-  max-width: 600px;
+  h4 {
+    .h4-icon {
+      font-size: 2.125rem !important;
+      margin-right: 10px;
+    }
+    margin-bottom: 20px;
+  }
+  .loginRegistForm {
+    margin: 10px;
+    h5 {
+      i {
+        margin-right: 10px;
+      }
+    }
+    .inputDisplayName {
+      max-width: 600px;
+    }
+  }
 }
 </style>
