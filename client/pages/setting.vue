@@ -10,6 +10,7 @@
         v-model="displayName"
         class="loginFormInput"
         label="表示名(40文字まで)"
+        counter="40"
         :rules="[rules.name, rules.counter]"
       ></v-text-field>
       <h5 class="headline">公開設定</h5>
