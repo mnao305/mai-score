@@ -57,5 +57,14 @@ import { ScoreData, GotScoreData } from '~/types'
     }
   }
 })
-export default class UserName extends Vue {}
+export default class UserName extends Vue {
+  scoreData: ScoreData[] = []
+
+  created() {
+    if (this.scoreData.length <= 0) {
+      alert('そのユーザ名は存在しません')
+      this.$router.push('/')
+    }
+  }
+}
 </script>
