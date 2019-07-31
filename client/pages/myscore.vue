@@ -1,6 +1,12 @@
 <template>
   <div>
-    <!-- <p>{{ userName }}</p> -->
+    <p v-if="scoreData.length <= 0">
+      登録されたスコアデータがありません。
+      <a @click="$router.push('/about')">
+        Aboutページ
+      </a>
+      を参考にデータ登録してください。
+    </p>
     <score-table :score-data="scoreData" />
   </div>
 </template>
@@ -55,5 +61,7 @@ import { ScoreData, GotScoreData } from '~/types'
     }
   }
 })
-export default class MyScore extends Vue {}
+export default class MyScore extends Vue {
+  scoreData: ScoreData[] = []
+}
 </script>
