@@ -38,6 +38,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { db } from '~/plugins/firestore'
+import auth from '~/plugins/auth'
 
 interface publicUserData {
   displayName: string
@@ -118,6 +119,7 @@ export default class SettingPage extends Vue {
           }
         }
       }
+      await auth.editUserProfile(this.displayName)
       const uid = this.$store.state.user.uid
       await db
         .collection('users')
