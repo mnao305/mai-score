@@ -21,6 +21,20 @@
       :loading="tableLoadFlg"
       :sort-desc="[true, false]"
     >
+      <template v-slot:item.title="{ item }">
+        <td>
+          <a
+            :href="
+              `https://maimaidx.jp/maimai-mobile/record/musicDetail/?idx=${encodeURIComponent(
+                item.musicID
+              )}`
+            "
+            target="_blank"
+          >
+            {{ item.title }}
+          </a>
+        </td>
+      </template>
       <template v-slot:item.level="{ item }">
         <td>
           {{
