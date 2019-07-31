@@ -7,7 +7,7 @@
         表示名
       </h5>
       <p>
-        '/設定した名前'という形のURLにアクセスすると表示できるようになります。
+        `/設定した名前`という形のURLにアクセスすると表示できるようになります。
       </p>
       <v-text-field
         v-model="displayName"
@@ -18,15 +18,16 @@
       ></v-text-field>
       <h5 class="headline"><v-icon>mdi-key-outline</v-icon>公開設定</h5>
       <p>
-        表示名を設定し、これを公開設定にすればスコアデータを一般公開できます。
+        表示名を設定し、これを公開設定にすれば`/設定した名前`という形でスコアデータを見ることができます。<br />
+        公開設定にすると自分以外のユーザでもスコアデータを表示できます。
       </p>
       <v-radio-group
         v-model="publicData"
         :rules="[rules.publicData]"
         :mandatory="false"
       >
-        <v-radio label="公開(誰でも見れる)" :value="true"></v-radio>
-        <v-radio label="非公開(自分のみ見れる)" :value="false"></v-radio>
+        <v-radio label="公開" :value="true"></v-radio>
+        <v-radio label="非公開" :value="false"></v-radio>
       </v-radio-group>
       <v-btn outlined color="indigo" @click="settingSave">保存</v-btn>
       <p>{{ message }}</p>
