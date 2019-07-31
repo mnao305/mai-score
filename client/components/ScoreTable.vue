@@ -69,13 +69,18 @@
         <td>{{ item.sync || '-' }}</td>
       </template>
     </v-data-table>
+    <Loading v-if="tableLoadFlg" />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { ScoreData } from '~/types'
-@Component
+@Component({
+  components: {
+    Loading: () => import('~/components/Loading.vue')
+  }
+})
 export default class ScoreTable extends Vue {
   @Prop() scoreData?: ScoreData[]
 
