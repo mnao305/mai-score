@@ -70,9 +70,8 @@ export default class AboutPage extends Vue {}
 
 <style lang="scss" scoped>
 .aboutPage {
-  text-align: center;
-  ol {
-    list-style-position: inside;
+  h5 {
+    margin-top: 15px;
   }
 }
 </style>
