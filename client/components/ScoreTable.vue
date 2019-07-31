@@ -98,5 +98,8 @@ export default class ScoreTable extends Vue {
   table > tbody > tr:nth-child(odd) {
     background-color: #e0f7fa !important;
   }
+  table > tbody > tr:nth-child(odd):hover {
+    background-color: #daebed !important;
+  }
 }
 </style>
