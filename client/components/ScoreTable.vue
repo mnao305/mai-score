@@ -13,7 +13,7 @@
       :items="scoreData"
       :search="search"
       multi-sort
-      mobile-breakpoint="0"
+      mobile-breakpoint="50"
       :score-items="scoreData"
       :items-per-page="50"
       :footer-props="{
