@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
