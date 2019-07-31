@@ -9,6 +9,6 @@ export default function({ route, store, redirect }) {
     }
   } else {
     store.dispatch('user/logout')
-    if (route.name === 'myscore') redirect('/')
+    if (route.name === 'myscore' || route.name === 'setting') redirect('/')
   }
 }
