@@ -94,9 +94,19 @@ export default class AboutPage extends Vue {
 
 <style lang="scss" scoped>
 .aboutPage {
-  h5 {
-    margin-top: 15px;
+  h5,
+  h6 {
+    margin: 15px 0;
   }
+  h5 {
+    border-left: solid 5px #26c6da;
+    padding: 0.25em 0.5em;
+  }
+  h6 {
+    border-left: dotted 5px #26c6da;
+    padding: 0.25em 0.5em;
+  }
+
   .bookmarklet {
     max-width: 600px;
   }
