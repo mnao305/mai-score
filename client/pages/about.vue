@@ -10,18 +10,40 @@
       スコアデータの閲覧のみなら登録は不要です。
     </p>
     <h5 class="headline">使い方</h5>
+    <p>
+      スコアデータを登録する前に事前に当サイトにてユーザ登録が必要です。<br />
+      メールアドレス・Twitterアカウントにて登録ができます。
+    </p>
+    <h6 class="title">スコアデータ登録方法1(PC版Chromeブラウザ)</h6>
     <ol>
-      <li>当サイトにてユーザ登録</li>
       <li>
         <a
           href="https://chrome.google.com/webstore/detail/mai-score-extension/nkoehdjknmmnpgchiliidfkmhkafdcki"
           target="_blank"
         >
-          スコアデータ登録用のブラウザ拡張機能のインストール(Chromeのみ)
+          スコアデータ登録用のブラウザ拡張機能のインストール
         </a>
       </li>
       <li>ブラウザ拡張機能にてログインする</li>
       <li>ブラウザ拡張機能にてスコアデータの登録</li>
+      <li>当サイトにてログインすればスコアデータが一覧で見れます</li>
+    </ol>
+    <h6 class="title">スコアデータ登録方法2(それ以外)</h6>
+    <ol>
+      <li>下記テキストをコピー</li>
+      <v-textarea
+        class="bookmarklet"
+        outlined
+        readonly
+        :value="bookmarklet"
+      ></v-textarea>
+      <li>ブラウザのブックマーク登録ボタンを押す</li>
+      <li>ブックマーク編集でURLをコピーしたコーデで上書き</li>
+      <li>maimaiでらっくすNET上で保存したブックマークを実行</li>
+      <li>
+        ポップアップウィンドウ上でログインする。Twitterログインの場合ポップアップがブロックされることがあるがそれを許可する
+      </li>
+      <li>画面に従いスコアデータの登録</li>
       <li>当サイトにてログインすればスコアデータが一覧で見れます</li>
     </ol>
     <h5 class="headline">その他</h5>
@@ -65,13 +87,18 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 @Component
-export default class AboutPage extends Vue {}
+export default class AboutPage extends Vue {
+  bookmarklet = `javascript:(function(d,s){let i=location.hostname.indexOf('maimaidx.jp');if(i!=-1){let g=d.createElement('div');g.id='mai-score-bookmarklet';d.body.appendChild(g);let s=d.createElement('script');s.src='//mai-score-bookmarklet.web.app/js/app.js'+'?'+Date.now();d.body.appendChild(s);let c=d.createElement('script');c.src='//mai-score-bookmarklet.web.app/js/chunk.js'+'?'+Date.now();d.body.appendChild(c);let a=d.createElement('link');a.href='//mai-score-bookmarklet.web.app/css/app.css'+'?'+Date.now();a.rel="stylesheet";a.type="text/css";d.body.appendChild(a);}else{if(confirm('maimaiでらっくすNETを開きますか？')){window.open('https://maimaidx.jp');}}})(document)`
+}
 </script>
 
 <style lang="scss" scoped>
 .aboutPage {
   h5 {
     margin-top: 15px;
+  }
+  .bookmarklet {
+    max-width: 600px;
   }
 }
 </style>
