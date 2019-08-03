@@ -1,6 +1,16 @@
 <template>
   <div>
-    <p>{{ userName }}さんのスコア</p>
+    <p>
+      {{ userName }}さんのスコア
+      <a
+        class="twitterLink"
+        target="_blank"
+        :href="twitterUrl()"
+        title="Twitterで共有"
+      >
+        <i class="mdi mdi-twitter" />Tweet
+      </a>
+    </p>
     <score-table :score-data="scoreData" />
   </div>
 </template>
@@ -65,11 +75,30 @@ import { ScoreData, GotScoreData } from '~/types'
 export default class UserName extends Vue {
   scoreData: ScoreData[] = []
 
+  userName: string = ''
+
   created() {
     if (this.scoreData.length <= 0) {
       alert('そのユーザ名は存在しません')
       this.$router.push('/')
     }
   }
+
+  twitterUrl() {
+    return encodeURI(
+      `https://twitter.com/intent/tweet?text=${this.userName}のスコアページ - 舞スコア&hashtags=舞スコア&url=https://mai-score.com${this.$route.path}`
+    )
+  }
 }
 </script>
+
+<style>
+.twitterLink {
+  border: 1px solid #00b0ed;
+  border-radius: 10px;
+  padding: 2px 4px;
+  right: 10px;
+  position: absolute;
+  text-decoration: none;
+}
+</style>
