@@ -77,7 +77,7 @@ export default class UserName extends Vue {
 
   userName: string = ''
 
-  created() {
+  beforeMount() {
     if (this.scoreData.length <= 0) {
       alert('そのユーザ名は存在しません')
       this.$router.push('/')
