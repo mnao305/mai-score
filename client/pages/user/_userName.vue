@@ -51,18 +51,22 @@ import { ScoreData, GotScoreData } from '~/types'
           .doc(difficultyLevel[i])
           .get()
         const data = tmp.data() as GotScoreData[]
-        scoreData.push(
-          ...Object.entries(data).map(([id, data]) => ({
-            id,
-            ...data,
-            achievement: data.achievements
-              ? data.achievements[data.achievements.length - 1].achievement
-              : null,
-            dxScore: data.dxScores
-              ? data.dxScores[data.dxScores.length - 1].dxScore
-              : null
-          }))
-        )
+        if (data) {
+          scoreData.push(
+            ...Object.entries(data).map(([id, data]) => ({
+              id,
+              ...data,
+              achievement: data.achievements
+                ? data.achievements[data.achievements.length - 1].achievement
+                : null,
+              dxScore: data.dxScores
+                ? data.dxScores[data.dxScores.length - 1].dxScore
+                : null
+            }))
+          )
+        } else {
+          break
+        }
       }
     }
 
@@ -80,7 +84,7 @@ export default class UserName extends Vue {
   beforeMount() {
     if (this.scoreData.length <= 0) {
       alert(
-        'そのユーザ名は存在しない、もしくはスコアデータが公開されていません'
+        'そのユーザ名は存在しない、もしくはスコアデータが登録・公開されていません'
       )
       this.$router.push('/')
     }
