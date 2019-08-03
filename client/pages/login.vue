@@ -7,6 +7,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 @Component({
+  head: {
+    title: 'ログイン'
+  },
   components: {
     TheLoginForm: () => import('~/components/TheLoginForm.vue')
   }

@@ -29,7 +29,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-@Component
+@Component({
+  head: {
+    title: '舞スコア',
+    titleTemplate: ''
+  }
+})
 export default class IndexPage extends Vue {}
 </script>
 

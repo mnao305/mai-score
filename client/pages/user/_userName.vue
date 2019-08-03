@@ -9,6 +9,11 @@ import { Component, Vue } from 'vue-property-decorator'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
 @Component({
+  head() {
+    return {
+      title: `${(this as any).userName}のスコアページ`
+    }
+  },
   components: {
     ScoreTable: () => import('~/components/ScoreTable.vue')
   },

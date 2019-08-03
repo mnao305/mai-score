@@ -12,8 +12,8 @@ const config: nuxtConfg = {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - ' + '舞スコア',
+    title: '舞スコア',
     htmlAttrs: {
       lang: 'ja'
     },

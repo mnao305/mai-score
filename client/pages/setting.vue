@@ -45,6 +45,9 @@ interface publicUserData {
   public: boolean
 }
 @Component({
+  head: {
+    title: '設定'
+  },
   async asyncData({ store }) {
     const doc = await db
       .collection('users')

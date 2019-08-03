@@ -15,6 +15,9 @@ import { Component, Vue } from 'vue-property-decorator'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
 @Component({
+  head: {
+    title: 'マイスコア'
+  },
   components: {
     ScoreTable: () => import('~/components/ScoreTable.vue')
   },
