@@ -21,7 +21,7 @@ import { ScoreData, GotScoreData } from '~/types'
   components: {
     ScoreTable: () => import('~/components/ScoreTable.vue')
   },
-  async asyncData({ store }) {
+  async asyncData({ store, redirect }) {
     const scoreData: ScoreData[] = []
     const difficultyLevel = [
       'Basic',
@@ -56,6 +56,21 @@ import { ScoreData, GotScoreData } from '~/types'
               : null
           }))
         )
+        if (scoreData.length > 0) {
+          const userDataDoc = await db
+            .collection('users')
+            .doc(store.state.user.uid)
+            .get()
+
+          if (userDataDoc && userDataDoc.exists) {
+            const userData = await userDataDoc.data()
+
+            if (userData && userData.displayName) {
+              redirect(`/user/${userData.displayName}`)
+              return
+            }
+          }
+        }
       }
     }
 
