@@ -3,6 +3,7 @@
     <p>
       {{ userName }}さんのスコア
       <a
+        v-if="publicMode"
         class="twitterLink"
         target="_blank"
         :href="twitterUrl()"
@@ -37,6 +38,7 @@ import { ScoreData, GotScoreData } from '~/types'
       'Master',
       'ReMaster'
     ]
+    let publicMode = false
     const snapShot = await db
       .collection('users')
       .where('displayName', '==', userName)
@@ -48,6 +50,8 @@ import { ScoreData, GotScoreData } from '~/types'
         displayName: string
         public: boolean
       }
+
+      publicMode = userData.public
 
       if (
         userData.public ||
@@ -83,7 +87,8 @@ import { ScoreData, GotScoreData } from '~/types'
 
     return {
       userName,
-      scoreData
+      scoreData,
+      publicMode
     }
   }
 })
@@ -91,6 +96,8 @@ export default class UserName extends Vue {
   scoreData: ScoreData[] = []
 
   userName: string = ''
+
+  publicMode = false
 
   beforeMount() {
     if (this.scoreData.length <= 0) {
