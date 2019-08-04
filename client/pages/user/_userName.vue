@@ -27,7 +27,7 @@ import { ScoreData, GotScoreData } from '~/types'
   components: {
     ScoreTable: () => import('~/components/ScoreTable.vue')
   },
-  async asyncData({ params }) {
+  async asyncData({ params, store }) {
     const userName = params.userName
     const scoreData: ScoreData[] = []
     const difficultyLevel = [
@@ -37,35 +37,46 @@ import { ScoreData, GotScoreData } from '~/types'
       'Master',
       'ReMaster'
     ]
-    for (let i = 0; i < difficultyLevel.length; i++) {
-      const snapShot = await db
-        .collection('users')
-        .where('displayName', '==', userName)
-        .where('public', '==', true)
-        .get()
+    const snapShot = await db
+      .collection('users')
+      .where('displayName', '==', userName)
+      .get()
+    const docs = await snapShot.docs[0]
 
-      const docs = await snapShot.docs[0]
-      if (docs && docs.exists) {
-        const tmp = await docs.ref
-          .collection('scores')
-          .doc(difficultyLevel[i])
-          .get()
-        const data = tmp.data() as GotScoreData[]
-        if (data) {
-          scoreData.push(
-            ...Object.entries(data).map(([id, data]) => ({
-              id,
-              ...data,
-              achievement: data.achievements
-                ? data.achievements[data.achievements.length - 1].achievement
-                : null,
-              dxScore: data.dxScores
-                ? data.dxScores[data.dxScores.length - 1].dxScore
-                : null
-            }))
-          )
-        } else {
-          break
+    if (docs && docs.exists) {
+      const userData = (await docs.data()) as {
+        displayName: string
+        public: boolean
+      }
+
+      if (
+        userData.public ||
+        (store.state.user &&
+          store.state.user.uid &&
+          store.state.user.uid === docs.id)
+      ) {
+        for (let i = 0; i < difficultyLevel.length; i++) {
+          const tmp = await docs.ref
+            .collection('scores')
+            .doc(difficultyLevel[i])
+            .get()
+          const data = tmp.data() as GotScoreData[]
+          if (data) {
+            scoreData.push(
+              ...Object.entries(data).map(([id, data]) => ({
+                id,
+                ...data,
+                achievement: data.achievements
+                  ? data.achievements[data.achievements.length - 1].achievement
+                  : null,
+                dxScore: data.dxScores
+                  ? data.dxScores[data.dxScores.length - 1].dxScore
+                  : null
+              }))
+            )
+          } else {
+            break
+          }
         }
       }
     }
