@@ -1,13 +1,5 @@
 <template>
   <div class="scoreData">
-    <v-text-field
-      v-model="search"
-      append-icon="search"
-      class="scoreSearch"
-      label="Search"
-      single-line
-      hide-details
-    ></v-text-field>
     <v-data-table
       :headers="headers"
       :items="scoreData"
@@ -21,7 +13,18 @@
       }"
       :loading="tableLoadFlg"
       :sort-desc="[true, false]"
+      :custom-filter="customFilterFunc"
     >
+      <template v-slot:top>
+        <v-text-field
+          v-model="search"
+          append-icon="search"
+          class="scoreSearch"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </template>
       <template v-slot:item.title="{ item }">
         <td>
           <a
@@ -104,6 +107,15 @@ export default class ScoreTable extends Vue {
 
   mounted() {
     this.tableLoadFlg = false
+  }
+
+  customFilterFunc(value, search, item) {
+    return (
+      value != null &&
+      value === item.title &&
+      search != null &&
+      value.indexOf(search) !== -1
+    )
   }
 }
 </script>
