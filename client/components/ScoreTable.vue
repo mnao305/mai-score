@@ -207,14 +207,15 @@ export default class ScoreTable extends Vue {
 
   get headers() {
     return [
-      { text: 'タイトル', value: 'title' },
+      { text: 'タイトル', value: 'title', divider: true },
       {
         text: 'ジャンル',
         value: 'genre',
         width: 190,
         filter: (value) => {
           return this.genre.some((v) => v === value)
-        }
+        },
+        divider: true
       },
       {
         text: '難易度',
@@ -222,7 +223,8 @@ export default class ScoreTable extends Vue {
         width: 105,
         filter: (value) => {
           return this.difficultyLevel.some((v) => v === value)
-        }
+        },
+        divider: true
       },
       {
         text: 'レベル',
@@ -230,13 +232,14 @@ export default class ScoreTable extends Vue {
         width: 105,
         filter: (value) => {
           return this.level.some((v) => v === value)
-        }
+        },
+        divider: true
       },
-      { text: '譜面', value: 'type', width: 95 },
-      { text: '達成率', value: 'achievement', width: 135 },
-      { text: 'ランク', value: 'rank', width: 105 },
-      { text: 'DXスコア', value: 'dxScore', width: 120 },
-      { text: 'コンボ', value: 'comboRank', width: 105 },
+      { text: '譜面', value: 'type', width: 95, divider: true },
+      { text: '達成率', value: 'achievement', width: 135, divider: true },
+      { text: 'ランク', value: 'rank', width: 105, divider: true },
+      { text: 'DXスコア', value: 'dxScore', width: 120, divider: true },
+      { text: 'コンボ', value: 'comboRank', width: 105, divider: true },
       { text: 'SYNC', value: 'sync', width: 100 }
     ]
   }
