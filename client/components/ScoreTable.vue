@@ -238,9 +238,9 @@ export default class ScoreTable extends Vue {
       { text: '譜面', value: 'type', width: 95, divider: true },
       { text: '達成率', value: 'achievement', width: 135, divider: true },
       { text: 'ランク', value: 'rank', width: 105, divider: true },
-      { text: 'DXスコア', value: 'dxScore', width: 120, divider: true },
+      { text: 'DXスコア', value: 'dxScore', width: 125, divider: true },
       { text: 'コンボ', value: 'comboRank', width: 105, divider: true },
-      { text: 'SYNC', value: 'sync', width: 100 }
+      { text: 'SYNC', value: 'sync', width: 105 }
     ]
   }
 
