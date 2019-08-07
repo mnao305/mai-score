@@ -16,6 +16,53 @@
       :custom-filter="customFilterFunc"
     >
       <template v-slot:top>
+        <v-expansion-panels flat>
+          <v-expansion-panel>
+            <v-expansion-panel-header>
+              <div><v-icon>mdi-filter</v-icon>フィルター</div>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <div class="optionTitle">難易度：</div>
+              <v-layout class="difficultyLevelOption" row>
+                <v-checkbox
+                  v-for="item in difficultyLevelList"
+                  :key="item"
+                  v-model="difficultyLevel"
+                  class="checkbox"
+                  :label="item"
+                  :value="item"
+                  hide-details
+                ></v-checkbox>
+              </v-layout>
+              <div class="optionTitle">ジャンル：</div>
+              <v-layout class="genreOption" row>
+                <v-checkbox
+                  v-for="item in genreList"
+                  :key="item"
+                  v-model="genre"
+                  class="checkbox"
+                  :label="item"
+                  :value="item"
+                  hide-details
+                ></v-checkbox>
+              </v-layout>
+              <div class="optionTitle">レベル：</div>
+              <v-layout class="levelOption" row>
+                <v-checkbox
+                  v-for="item in levelList"
+                  :key="item"
+                  v-model="level"
+                  class="checkbox"
+                  :label="
+                    `${Math.round(item) === item ? item : `${item - 0.5}+`}`
+                  "
+                  :value="item"
+                  hide-details
+                ></v-checkbox>
+              </v-layout>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </v-expansion-panels>
         <v-text-field
           v-model="search"
           append-icon="search"
@@ -90,18 +137,109 @@ export default class ScoreTable extends Vue {
 
   tableLoadFlg = true
 
-  headers = [
-    { text: 'タイトル', value: 'title' },
-    { text: 'ジャンル', value: 'genre', width: 190 },
-    { text: '難易度', value: 'difficultyLevel', width: 105 },
-    { text: 'レベル', value: 'level', width: 105 },
-    { text: '譜面', value: 'type', width: 95 },
-    { text: '達成率', value: 'achievement', width: 135 },
-    { text: 'ランク', value: 'rank', width: 105 },
-    { text: 'DXスコア', value: 'dxScore', width: 120 },
-    { text: 'コンボ', value: 'comboRank', width: 105 },
-    { text: 'SYNC', value: 'sync', width: 100 }
+  difficultyLevelList = ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster']
+
+  difficultyLevel = ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster']
+
+  genreList = [
+    'niconico＆ボーカロイド',
+    '東方Project',
+    'バラエティ',
+    'オリジナル',
+    'POPS＆アニメ'
   ]
+
+  genre = [
+    'niconico＆ボーカロイド',
+    '東方Project',
+    'バラエティ',
+    'オリジナル',
+    'POPS＆アニメ'
+  ]
+
+  levelList = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    7.5,
+    8,
+    8.5,
+    9,
+    9.5,
+    10,
+    10.5,
+    11,
+    11.5,
+    12,
+    12.5,
+    13,
+    13.5,
+    14
+  ]
+
+  level = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    7.5,
+    8,
+    8.5,
+    9,
+    9.5,
+    10,
+    10.5,
+    11,
+    11.5,
+    12,
+    12.5,
+    13,
+    13.5,
+    14
+  ]
+
+  get headers() {
+    return [
+      { text: 'タイトル', value: 'title' },
+      {
+        text: 'ジャンル',
+        value: 'genre',
+        width: 190,
+        filter: (value) => {
+          return this.genre.some((v) => v === value)
+        }
+      },
+      {
+        text: '難易度',
+        value: 'difficultyLevel',
+        width: 105,
+        filter: (value) => {
+          return this.difficultyLevel.some((v) => v === value)
+        }
+      },
+      {
+        text: 'レベル',
+        value: 'level',
+        width: 105,
+        filter: (value) => {
+          return this.level.some((v) => v === value)
+        }
+      },
+      { text: '譜面', value: 'type', width: 95 },
+      { text: '達成率', value: 'achievement', width: 135 },
+      { text: 'ランク', value: 'rank', width: 105 },
+      { text: 'DXスコア', value: 'dxScore', width: 120 },
+      { text: 'コンボ', value: 'comboRank', width: 105 },
+      { text: 'SYNC', value: 'sync', width: 100 }
+    ]
+  }
 
   search = ''
 
@@ -132,6 +270,14 @@ export default class ScoreTable extends Vue {
   }
   table > tbody > tr:nth-child(odd):hover {
     background-color: #daebed !important;
+  }
+  .checkbox {
+    margin-right: 5px;
+    margin-top: 0;
+  }
+  .optionTitle {
+    margin-left: -12px;
+    margin-top: 10px;
   }
 }
 </style>

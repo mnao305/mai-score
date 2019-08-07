@@ -18,6 +18,7 @@ export default class Loading extends Vue {}
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
+  z-index: 100;
 }
 .loading {
   position: fixed;
