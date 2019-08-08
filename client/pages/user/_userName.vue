@@ -116,7 +116,7 @@ export default class UserName extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
 .twitterLink {
   border: 1px solid #00b0ed;
   border-radius: 10px;
@@ -124,5 +124,8 @@ export default class UserName extends Vue {
   right: 10px;
   position: absolute;
   text-decoration: none;
+  i {
+    padding: 4px;
+  }
 }
 </style>
