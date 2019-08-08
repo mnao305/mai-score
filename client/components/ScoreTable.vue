@@ -306,5 +306,8 @@ export default class ScoreTable extends Vue {
     margin-left: -12px;
     margin-top: 10px;
   }
+  a {
+    text-decoration: none;
+  }
 }
 </style>
