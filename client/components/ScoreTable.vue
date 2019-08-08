@@ -60,6 +60,18 @@
                   hide-details
                 ></v-checkbox>
               </v-layout>
+              <div class="typeTitle">譜面タイプ：</div>
+              <v-layout class="typeOption" row>
+                <v-checkbox
+                  v-for="item in typeList"
+                  :key="item"
+                  v-model="type"
+                  class="checkbox"
+                  :label="item"
+                  :value="item"
+                  hide-details
+                ></v-checkbox>
+              </v-layout>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -205,6 +217,10 @@ export default class ScoreTable extends Vue {
     14
   ]
 
+  typeList = ['deluxe', 'standard']
+
+  type = ['deluxe', 'standard']
+
   get headers() {
     return [
       { text: 'タイトル', value: 'title', divider: true },
@@ -235,7 +251,15 @@ export default class ScoreTable extends Vue {
         },
         divider: true
       },
-      { text: '譜面', value: 'type', width: 95, divider: true },
+      {
+        text: '譜面',
+        value: 'type',
+        width: 95,
+        filter: (value) => {
+          return this.type.some((v) => v === value)
+        },
+        divider: true
+      },
       { text: '達成率', value: 'achievement', width: 135, divider: true },
       { text: 'ランク', value: 'rank', width: 105, divider: true },
       { text: 'DXスコア', value: 'dxScore', width: 125, divider: true },
