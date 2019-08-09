@@ -60,7 +60,7 @@
                   hide-details
                 ></v-checkbox>
               </v-layout>
-              <div class="typeTitle">譜面タイプ：</div>
+              <div class="optionTitle">譜面タイプ：</div>
               <v-layout class="typeOption" row>
                 <v-checkbox
                   v-for="item in typeList"
