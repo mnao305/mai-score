@@ -3,6 +3,7 @@
 export interface S {
   isAuthenticatedFlg: boolean
   uid: string
+  providerData: firebase.UserInfo[]
 }
 // ______________________________________________________
 //
@@ -17,6 +18,7 @@ export interface RG {
 export interface M {
   isAuthenticatedFlgChange: boolean
   setUID: string
+  setProviderData: firebase.UserInfo[]
 }
 export interface RM {
   'user/isAuthenticatedFlgChange': M['isAuthenticatedFlgChange']

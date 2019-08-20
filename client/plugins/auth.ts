@@ -78,6 +78,15 @@ const auth = {
           .catch((error) => reject(error))
       }
     })
+  },
+  // メールユーザのTwitter連携
+  linkTwitter() {
+    return new Promise(() => {
+      const user = firebase.auth().currentUser
+      if (user) {
+        user.linkWithRedirect(twitter)
+      }
+    })
   }
 }
 

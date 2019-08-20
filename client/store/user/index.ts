@@ -5,7 +5,8 @@ import { db } from '~/plugins/firestore'
 //
 export const state = (): S => ({
   isAuthenticatedFlg: false,
-  uid: ''
+  uid: '',
+  providerData: []
 })
 // ______________________________________________________
 //
@@ -20,6 +21,9 @@ export const mutations: Mutations<S, M> = {
   },
   setUID(state, uid) {
     state.uid = uid
+  },
+  setProviderData(state, providerData) {
+    state.providerData = providerData
   }
 }
 // ______________________________________________________
@@ -28,7 +32,7 @@ export const actions: Actions<S, A, G, M> = {
   async setUser(ctx, user) {
     const providerData = user.providerData.map((v) => {
       return { ...v }
-    })
+    }) as firebase.UserInfo[]
 
     try {
       const doc = await db
@@ -60,9 +64,23 @@ export const actions: Actions<S, A, G, M> = {
             _createdAt: date,
             _updateAt: date
           })
+      } else {
+        await db
+          .collection('users')
+          .doc(user.uid)
+          .collection('secure')
+          .doc(user.uid)
+          .set(
+            {
+              email: user.email,
+              providerData: providerData
+            },
+            { merge: true }
+          )
       }
       ctx.commit('isAuthenticatedFlgChange', true)
       ctx.commit('setUID', user.uid)
+      ctx.commit('setProviderData', providerData)
     } catch (error) {
       console.error(error)
     }
