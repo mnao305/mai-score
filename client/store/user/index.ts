@@ -88,5 +88,21 @@ export const actions: Actions<S, A, G, M> = {
   logout(ctx) {
     ctx.commit('isAuthenticatedFlgChange', false)
     ctx.commit('setUID', '')
+  },
+  async saveTwitterToken(ctx, credential) {
+    // eslint-disable-next-line no-console
+    console.log(credential)
+    await db
+      .collection('users')
+      .doc(ctx.state.uid)
+      .collection('secure')
+      .doc(ctx.state.uid)
+      .set(
+        {
+          accessToken: credential.accessToken,
+          secret: credential.secret
+        },
+        { merge: true }
+      )
   }
 }

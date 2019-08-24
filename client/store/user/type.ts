@@ -29,8 +29,10 @@ export interface RM {
 export interface A {
   setUser: firebase.User
   logout: any
+  saveTwitterToken: firebase.auth.OAuthCredential
 }
 export interface RA {
   'user/setUser': A['setUser']
   'user/logout': A['logout']
+  'user/saveTwitterToken': A['saveTwitterToken']
 }

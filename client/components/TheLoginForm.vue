@@ -109,6 +109,9 @@ export default class TheLoginForm extends Vue {
     const data = await auth.getRedirectResult()
     if (data.user) {
       await this.$store.dispatch('user/setUser', data.user)
+      if (data.credential) {
+        await this.$store.dispatch('user/saveTwitterToken', data.credential)
+      }
       this.$router.push('/myscore')
       return
     }

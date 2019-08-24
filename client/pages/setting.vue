@@ -139,10 +139,10 @@ export default class SettingPage extends Vue {
   async beforeMount() {
     const data = await auth.getRedirectResult()
     if (data.user) {
-      // eslint-disable-next-line no-console
-      console.log(data.user)
-
       await this.$store.dispatch('user/setUser', data.user)
+      if (data.credential) {
+        await this.$store.dispatch('user/saveTwitterToken', data.credential)
+      }
     }
     this.loadFlg = false
   }
