@@ -16,3 +16,4 @@ function handleRequest(req, res) {
 
 app.use(handleRequest)
 exports.ssr = functions.https.onRequest(app)
+exports.tweet = functions.https.onRequest(require('./tweet'))
