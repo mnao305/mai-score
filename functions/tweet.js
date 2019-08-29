@@ -2,6 +2,7 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const Twitter = require('twit')
 const express = require('express')
+const cors = require('cors')
 const tweet = express()
 const axios = require('axios')
 admin.initializeApp()
@@ -73,6 +74,7 @@ async function tweetScore(req, res) {
   }
 }
 
+tweet.use(cors({ origin: true }))
 tweet.use(tweetScore)
 
 module.exports = tweet
