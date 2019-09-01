@@ -279,7 +279,7 @@ export default class ScoreTable extends Vue {
       value != null &&
       value === item.title &&
       search != null &&
-      value.indexOf(search) !== -1
+      value.includes(search)
     )
   }
 }

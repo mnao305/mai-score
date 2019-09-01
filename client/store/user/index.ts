@@ -60,7 +60,7 @@ export const actions: Actions<S, A, G, M> = {
           .set({
             userID: user.uid,
             email: user.email,
-            providerData: providerData,
+            providerData,
             _createdAt: date,
             _updateAt: date
           })
@@ -73,7 +73,7 @@ export const actions: Actions<S, A, G, M> = {
           .set(
             {
               email: user.email,
-              providerData: providerData
+              providerData
             },
             { merge: true }
           )

@@ -1,7 +1,7 @@
-import NuxtConfiguration from '@nuxt/config'
+import { Configuration } from '@nuxt/types'
 require('dotenv').config()
 
-interface nuxtConfg extends NuxtConfiguration {
+interface nuxtConfg extends Configuration {
   env?: any
 }
 
@@ -50,9 +50,18 @@ const config: nuxtConfg = {
   /*
    ** Nuxt.js modules
    */
-  modules: [
+  buildModules: [
     '@nuxtjs/vuetify',
-    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxt/typescript-build',
+    [
+      '@nuxt/typescript-build',
+      {
+        typeCheck: true,
+        ignoreNotFoundWarnings: true
+      }
+    ]
+  ],
+  modules: [
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',

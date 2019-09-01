@@ -128,7 +128,7 @@ export default class TheLoginForm extends Vue {
         await this.$store.dispatch('user/setUser', data.user)
         this.$router.push('/myscore')
       } else {
-        throw new Error()
+        throw new Error('ユーザなし')
       }
     } catch (error) {
       this.isErrorFlg = true
@@ -146,7 +146,7 @@ export default class TheLoginForm extends Vue {
         await this.$store.dispatch('user/setUser', data.user)
         this.$router.push('/myscore')
       } else {
-        throw new Error()
+        throw new Error('ユーザなし')
       }
     } catch (error) {
       this.isErrorFlg = true

@@ -26,9 +26,10 @@
     },
     "types": [
       "@types/node",
-      "@nuxt/vue-app",
+      "@nuxt/types",
       "./client/types/vuex",
       "@nuxtjs/vuetify"
     ]
-  }
+  },
+  "exclude": ["node_module"]
 }
