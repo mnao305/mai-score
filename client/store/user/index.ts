@@ -6,7 +6,41 @@ import { db } from '~/plugins/firestore'
 export const state = (): S => ({
   isAuthenticatedFlg: false,
   uid: '',
-  providerData: []
+  providerData: [],
+  filterOption: {
+    difficultyLevel: ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster'],
+    genre: [
+      'niconico＆ボーカロイド',
+      '東方Project',
+      'バラエティ',
+      'オリジナル',
+      'POPS＆アニメ'
+    ],
+    level: [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      7.5,
+      8,
+      8.5,
+      9,
+      9.5,
+      10,
+      10.5,
+      11,
+      11.5,
+      12,
+      12.5,
+      13,
+      13.5,
+      14
+    ],
+    type: ['deluxe', 'standard']
+  }
 })
 // ______________________________________________________
 //
@@ -24,6 +58,9 @@ export const mutations: Mutations<S, M> = {
   },
   setProviderData(state, providerData) {
     state.providerData = providerData
+  },
+  setFilterOption(state, filterOption) {
+    state.filterOption = JSON.parse(JSON.stringify(filterOption))
   }
 }
 // ______________________________________________________
