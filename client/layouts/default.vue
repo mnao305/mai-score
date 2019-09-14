@@ -1,11 +1,12 @@
 <template>
   <v-app>
     <v-content>
+      <the-header />
       <v-container fluid>
-        <the-header />
         <nuxt />
       </v-container>
     </v-content>
+    <TheFooter />
   </v-app>
 </template>
 
@@ -14,7 +15,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import auth from '~/plugins/auth'
 @Component({
   components: {
-    TheHeader: () => import('~/components/TheHeader.vue')
+    TheHeader: () => import('~/components/TheHeader.vue'),
+    TheFooter: () => import('~/components/TheFooter.vue')
   }
 })
 export default class IndexLayout extends Vue {
