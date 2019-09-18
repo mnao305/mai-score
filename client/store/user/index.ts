@@ -127,8 +127,6 @@ export const actions: Actions<S, A, G, M> = {
     ctx.commit('setUID', '')
   },
   async saveTwitterToken(ctx, credential) {
-    // eslint-disable-next-line no-console
-    console.log(credential)
     await db
       .collection('users')
       .doc(ctx.state.uid)
