@@ -20,7 +20,7 @@ import auth from '~/plugins/auth'
   }
 })
 export default class IndexLayout extends Vue {
-  async beforeCreate() {
+  async beforeMount() {
     const data = await auth.auth()
     if (data) {
       await this.$store.dispatch('user/setUser', data)

@@ -7,11 +7,12 @@
       </a>
       を参考にデータ登録してください。
     </p>
-    <score-table :score-data="scoreData" />
+    <score-table :score-data="scoreData" :table-load-flg="tableLoadFlg" />
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import * as Vuex from 'vuex'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
 @Component({
@@ -22,7 +23,34 @@ import { ScoreData, GotScoreData } from '~/types'
     ScoreTable: () => import('~/components/ScoreTable.vue')
   },
   async asyncData({ store, redirect }) {
-    const scoreData: ScoreData[] = []
+    const col = await db
+      .collection('users')
+      .doc(store.state.user.uid)
+      .collection('scores')
+      .get()
+    const empty = col.empty
+
+    const userDataDoc = await db
+      .collection('users')
+      .doc(store.state.user.uid)
+      .get()
+
+    if (!empty && userDataDoc && userDataDoc.exists) {
+      const userData = await userDataDoc.data()
+      if (userData && userData.displayName) {
+        redirect(`/user/${userData.displayName}`)
+      }
+    }
+  }
+})
+export default class MyScore extends Vue {
+  $store!: Vuex.ExStore
+
+  scoreData: ScoreData[] = []
+
+  tableLoadFlg = true
+
+  async mounted() {
     const difficultyLevel = [
       'Basic',
       'Advanced',
@@ -30,21 +58,25 @@ import { ScoreData, GotScoreData } from '~/types'
       'Master',
       'ReMaster'
     ]
-
-    if (!(store.state.user && store.state.user.uid)) {
-      return { scoreData }
+    if (!(this.$store.state.user && this.$store.state.user.uid)) {
+      return
     }
     for (let i = 0; i < difficultyLevel.length; i++) {
-      const doc = await db
-        .collection('users')
-        .doc(store.state.user.uid)
-        .collection('scores')
-        .doc(difficultyLevel[i])
-        .get()
+      let doc
+      try {
+        doc = await db
+          .collection('users')
+          .doc(this.$store.state.user.uid)
+          .collection('scores')
+          .doc(difficultyLevel[i])
+          .get()
+      } catch (error) {
+        console.error(error)
+      }
 
       if (doc && doc.exists) {
         const data = (await doc.data()) as GotScoreData[]
-        scoreData.push(
+        this.scoreData.push(
           ...Object.entries(data).map(([id, data]) => ({
             id,
             ...data,
@@ -56,30 +88,9 @@ import { ScoreData, GotScoreData } from '~/types'
               : null
           }))
         )
-        if (scoreData.length > 0) {
-          const userDataDoc = await db
-            .collection('users')
-            .doc(store.state.user.uid)
-            .get()
-
-          if (userDataDoc && userDataDoc.exists) {
-            const userData = await userDataDoc.data()
-
-            if (userData && userData.displayName) {
-              redirect(`/user/${userData.displayName}`)
-              return
-            }
-          }
-        }
       }
     }
-
-    return {
-      scoreData
-    }
+    this.tableLoadFlg = false
   }
-})
-export default class MyScore extends Vue {
-  scoreData: ScoreData[] = []
 }
 </script>

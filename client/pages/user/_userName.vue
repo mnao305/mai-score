@@ -12,11 +12,12 @@
         <i class="mdi mdi-twitter" />Tweet
       </a>
     </p>
-    <score-table :score-data="scoreData" />
+    <score-table :score-data="scoreData" :table-load-flg="tableLoadFlg" />
   </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import * as Vuex from 'vuex'
 import { db } from '~/plugins/firestore'
 import { ScoreData, GotScoreData } from '~/types'
 @Component({
@@ -28,16 +29,9 @@ import { ScoreData, GotScoreData } from '~/types'
   components: {
     ScoreTable: () => import('~/components/ScoreTable.vue')
   },
-  async asyncData({ params, store }) {
+  async asyncData({ params }) {
     const userName = params.userName
-    const scoreData: ScoreData[] = []
-    const difficultyLevel = [
-      'Basic',
-      'Advanced',
-      'Expert',
-      'Master',
-      'ReMaster'
-    ]
+
     let publicMode = false
     const snapShot = await db
       .collection('users')
@@ -52,60 +46,78 @@ import { ScoreData, GotScoreData } from '~/types'
       }
 
       publicMode = userData.public
-
-      if (
-        userData.public ||
-        (store.state.user &&
-          store.state.user.uid &&
-          store.state.user.uid === docs.id)
-      ) {
-        for (let i = 0; i < difficultyLevel.length; i++) {
-          const tmp = await docs.ref
-            .collection('scores')
-            .doc(difficultyLevel[i])
-            .get()
-          const data = tmp.data() as GotScoreData[]
-          if (data) {
-            scoreData.push(
-              ...Object.entries(data).map(([id, data]) => ({
-                id,
-                ...data,
-                achievement: data.achievements
-                  ? data.achievements[data.achievements.length - 1].achievement
-                  : null,
-                dxScore: data.dxScores
-                  ? data.dxScores[data.dxScores.length - 1].dxScore
-                  : null
-              }))
-            )
-          } else {
-            break
-          }
-        }
-      }
     }
 
     return {
       userName,
-      scoreData,
       publicMode
     }
   }
 })
 export default class UserName extends Vue {
+  $store!: Vuex.ExStore
+
   scoreData: ScoreData[] = []
 
   userName: string = ''
 
   publicMode = false
 
-  beforeMount() {
+  tableLoadFlg = true
+
+  async created() {
+    const snapShot = await db
+      .collection('users')
+      .where('displayName', '==', this.userName)
+      .get()
+    const docs = await snapShot.docs[0]
+    const difficultyLevel = [
+      'Basic',
+      'Advanced',
+      'Expert',
+      'Master',
+      'ReMaster'
+    ]
+    const tmpScoreData: ScoreData[] = []
+
+    if (
+      this.publicMode ||
+      (this.$store.state.user &&
+        this.$store.state.user.uid &&
+        this.$store.state.user.uid === docs.id)
+    ) {
+      for (let i = 0; i < difficultyLevel.length; i++) {
+        const tmp = await docs.ref
+          .collection('scores')
+          .doc(difficultyLevel[i])
+          .get()
+        const data = tmp.data() as GotScoreData[]
+        if (data) {
+          tmpScoreData.push(
+            ...Object.entries(data).map(([id, data]) => ({
+              id,
+              ...data,
+              achievement: data.achievements
+                ? data.achievements[data.achievements.length - 1].achievement
+                : null,
+              dxScore: data.dxScores
+                ? data.dxScores[data.dxScores.length - 1].dxScore
+                : null
+            }))
+          )
+        } else {
+          break
+        }
+      }
+    }
+    this.scoreData = tmpScoreData
     if (this.scoreData.length <= 0) {
       alert(
         'そのユーザ名は存在しない、もしくはスコアデータが登録・公開されていません'
       )
       this.$router.push('/')
     }
+    this.tableLoadFlg = false
   }
 
   twitterUrl() {

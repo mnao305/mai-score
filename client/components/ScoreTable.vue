@@ -136,7 +136,6 @@
         <td>{{ item.sync || '-' }}</td>
       </template>
     </v-data-table>
-    <Loading v-if="tableLoadFlg" />
   </div>
 </template>
 
@@ -154,7 +153,7 @@ export default class ScoreTable extends Vue {
 
   $store!: Vuex.ExStore
 
-  tableLoadFlg = true
+  @Prop() readonly tableLoadFlg
 
   difficultyLevelList = ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster']
 
@@ -286,7 +285,6 @@ export default class ScoreTable extends Vue {
         JSON.stringify(this.$store.state.user.filterOption)
       )
     }
-    this.tableLoadFlg = false
   }
 
   customFilterFunc(value, search, item) {
