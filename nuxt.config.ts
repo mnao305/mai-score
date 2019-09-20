@@ -46,7 +46,10 @@ const config: nuxtConfg = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/localStorage.ts'],
+  plugins: [
+    '~/plugins/localStorage.ts',
+    { src: '~/plugins/ga.js', ssr: false }
+  ],
   /*
    ** Nuxt.js modules
    */
@@ -66,13 +69,13 @@ const config: nuxtConfg = {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv',
-    'cookie-universal-nuxt',
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: 'UA-57438486-7'
-      }
-    ]
+    'cookie-universal-nuxt'
+    // [
+    //   '@nuxtjs/google-analytics',
+    //   {
+    //     id: 'UA-57438486-7'
+    //   }
+    // ]
   ],
 
   router: {
