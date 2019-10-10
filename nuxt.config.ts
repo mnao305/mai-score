@@ -23,7 +23,8 @@ const config: nuxtConfg = {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content:
+          'maimaiでらっくすのスコア管理ツールです。スコアの一覧表示や画像つきのスコア更新ツイートなどが可能です。'
       }
     ],
     link: [
