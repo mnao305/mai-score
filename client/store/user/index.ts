@@ -39,7 +39,19 @@ export const state = (): S => ({
       13.5,
       14
     ],
-    type: ['deluxe', 'standard']
+    type: ['deluxe', 'standard'],
+    showColumn: [
+      'title',
+      'genre',
+      'difficultyLevel',
+      'level',
+      'type',
+      'achievement',
+      'rank',
+      'dxScore',
+      'comboRank',
+      'sync'
+    ]
   }
 })
 // ______________________________________________________

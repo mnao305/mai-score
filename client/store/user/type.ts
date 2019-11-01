@@ -9,6 +9,7 @@ export interface S {
     genre: string[]
     level: number[]
     type: string[]
+    showColumn: string[]
   }
 }
 // ______________________________________________________

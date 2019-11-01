@@ -1,7 +1,7 @@
 <template>
   <div class="scoreData">
     <v-data-table
-      :headers="headers"
+      :headers="shownHeaders"
       :items="scoreData"
       :search="search"
       multi-sort
@@ -72,6 +72,19 @@
                   class="checkbox"
                   :label="item"
                   :value="item"
+                  hide-details
+                  @change="onFilterOptionChanged"
+                ></v-checkbox>
+              </v-layout>
+              <div class="optionTitle">表示カラム：</div>
+              <v-layout class="typeOption" row>
+                <v-checkbox
+                  v-for="item in showColumnList"
+                  :key="item.value"
+                  v-model="filterOption.showColumn"
+                  class="checkbox"
+                  :label="item.text"
+                  :value="item.value"
                   hide-details
                   @change="onFilterOptionChanged"
                 ></v-checkbox>
@@ -191,6 +204,19 @@ export default class ScoreTable extends Vue {
 
   typeList = ['deluxe', 'standard']
 
+  showColumnList = [
+    { text: 'タイトル', value: 'title' },
+    { text: 'ジャンル', value: 'genre' },
+    { text: '難易度', value: 'difficultyLevel' },
+    { text: 'レベル', value: 'level' },
+    { text: '譜面', value: 'type' },
+    { text: '達成率', value: 'achievement' },
+    { text: 'ランク', value: 'rank' },
+    { text: 'DXスコア', value: 'dxScore' },
+    { text: 'コンボ', value: 'comboRank' },
+    { text: 'SYNC', value: 'sync' }
+  ]
+
   filterOption = {
     difficultyLevel: ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster'],
     genre: [
@@ -223,11 +249,29 @@ export default class ScoreTable extends Vue {
       13,
       13.5,
       14
+    ],
+    showColumn: [
+      'title',
+      'genre',
+      'difficultyLevel',
+      'level',
+      'type',
+      'achievement',
+      'rank',
+      'dxScore',
+      'comboRank',
+      'sync'
     ]
   }
 
   onFilterOptionChanged() {
     this.$store.commit('user/setFilterOption', this.filterOption)
+  }
+
+  get shownHeaders() {
+    return this.headers.filter((h) =>
+      this.filterOption.showColumn.includes(h.value)
+    )
   }
 
   get headers() {
