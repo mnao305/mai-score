@@ -89,6 +89,11 @@
                   @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
+              <v-layout row class="optionTitle">
+                <v-btn outlined color="indigo" @click="filterReset">
+                  フィルターリセット
+                </v-btn>
+              </v-layout>
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -338,6 +343,55 @@ export default class ScoreTable extends Vue {
       search != null &&
       value.includes(search)
     )
+  }
+
+  filterReset() {
+    this.filterOption = {
+      difficultyLevel: ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster'],
+      genre: [
+        'niconico＆ボーカロイド',
+        '東方Project',
+        'バラエティ',
+        'オリジナル',
+        'POPS＆アニメ'
+      ],
+      type: ['deluxe', 'standard'],
+      level: [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        7.5,
+        8,
+        8.5,
+        9,
+        9.5,
+        10,
+        10.5,
+        11,
+        11.5,
+        12,
+        12.5,
+        13,
+        13.5,
+        14
+      ],
+      showColumn: [
+        'title',
+        'genre',
+        'difficultyLevel',
+        'level',
+        'type',
+        'achievement',
+        'rank',
+        'dxScore',
+        'comboRank',
+        'sync'
+      ]
+    }
   }
 }
 </script>
