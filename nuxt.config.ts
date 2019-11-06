@@ -6,6 +6,7 @@ interface nuxtConfg extends Configuration {
 }
 
 const config: nuxtConfg = {
+  dev: process.env.NODE_ENV !== 'production',
   mode: 'universal',
   srcDir: 'client/',
   /*
