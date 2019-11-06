@@ -16,13 +16,12 @@ jobs:
       - name: Develop version deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          API_KEY: ${{ secrets.API_KEY }}
-          AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          PROJECT_ID: ${{ secrets.PROJECT_ID }}
-          STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
-          MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID }}
-          appId: ${{ secrets.appId }}
+          API_KEY: ${{ secrets.DEV_API_KEY }}
+          AUTH_DOMAIN: ${{ secrets.DEV_AUTH_DOMAIN }}
+          DATABASE_URL: ${{ secrets.DEV_DATABASE_URL }}
+          PROJECT_ID: ${{ secrets.DEV_PROJECT_ID }}
+          STORAGE_BUCKET: ${{ secrets.DEV_STORAGE_BUCKET }}
+          MESSAGING_SENDER_ID: ${{ secrets.DEV_MESSAGING_SENDER_ID }}
         run: |
           npm install -g firebase-tools
           npm install
