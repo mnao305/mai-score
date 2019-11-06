@@ -111,6 +111,15 @@ const config: nuxtConfg = {
    */
   build: {
     publicPath: '/assets/',
+    templates: [
+      {
+        src: 'client/templates/robots.txt',
+        dst: '../client/static/robots.txt',
+        options: {
+          env: process.env.NODE_ENV
+        }
+      }
+    ],
     /*
      ** You can extend webpack config here
      */
