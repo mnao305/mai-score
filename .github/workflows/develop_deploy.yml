@@ -27,5 +27,4 @@ jobs:
           npm install -g firebase-tools
           npm install
           npm build:firebase
-          firebase use develop
-          firebase deploy --token $FIREBASE_TOKEN
+          firebase deploy --token $FIREBASE_TOKEN --project develop
