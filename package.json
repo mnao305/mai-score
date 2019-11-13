@@ -8,7 +8,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "test": "jest",
-    "dev": "nuxt-ts",
+    "dev": "cross-env NUXT_HOST=0.0.0.0 nuxt-ts",
     "build": "nuxt-ts build",
     "build-dev": "cross-env NODE_ENV=development nuxt-ts build --devtools",
     "start": "nuxt-ts start",
