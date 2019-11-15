@@ -118,24 +118,41 @@ export default class MyScore extends Vue {
 
     for (let i = 0; i < this.chartData.length; i++) {
       const tmpChart = this.chartData[i]
-      let aryIndex = -1
+      const aryIndex: number[] = []
       const tmp = this.scoreData.filter((el, index) => {
         if (
           el.title === tmpChart.title &&
           el.difficultyLevel === tmpChart.difficultyLevel &&
           el.type === tmpChart.type
         ) {
-          aryIndex = index
+          aryIndex.push(index)
           return true
         }
       })
 
-      if (aryIndex >= 0 && tmp.length === 1) {
+      if (aryIndex.length === 1 && tmp.length === 1) {
         tmp[0].maxCombo = tmpChart.maxCombo
         tmp[0].maxDxScore = tmpChart.maxCombo * 3
+        if (tmp[0].dxScore != null) {
+          tmp[0].minusTheoreticalValue = tmp[0].dxScore - tmpChart.maxCombo * 3
+        }
         tmp[0].notes = tmpChart.notes
         tmp[0].songID = tmpChart.musicID
-        this.scoreData.splice(aryIndex, 1, tmp[0])
+        this.scoreData.splice(aryIndex[0], 1, tmp[0])
+      } else if (aryIndex.length > 1 && tmp.length > 1) {
+        const musicData = this.musicData.filter((el) => {
+          return el.songID === tmpChart.musicID
+        })
+        const index = tmp.findIndex((v) => v.genre === musicData[0].genre)
+        tmp[index].maxCombo = tmpChart.maxCombo
+        tmp[index].maxDxScore = tmpChart.maxCombo * 3
+        if (tmp[index].dxScore != null) {
+          tmp[index].minusTheoreticalValue =
+            tmp[index].dxScore! - tmpChart.maxCombo * 3
+        }
+        tmp[index].notes = tmpChart.notes
+        tmp[index].songID = tmpChart.musicID
+        this.scoreData.splice(aryIndex[index], 1, tmp[index])
       }
     }
 

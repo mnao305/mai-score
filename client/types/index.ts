@@ -1,7 +1,9 @@
 export interface GotScoreData {
   achievements: { achievement: number; date: number }[] | null
+  achievement: number | null
   difficultyLevel: string
   dxScores: { dxScore: number; date: number }[] | null
+  dxScore: number | null
   genre: string
   level: number
   title: string
@@ -19,6 +21,7 @@ export interface GotScoreData {
   }
   songID?: string
   maxDxScore?: number
+  minusTheoreticalValue?: number
 }
 
 export interface ScoreData extends GotScoreData {

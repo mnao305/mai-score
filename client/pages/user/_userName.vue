@@ -163,6 +163,9 @@ export default class UserName extends Vue {
       if (aryIndex.length === 1 && tmp.length === 1) {
         tmp[0].maxCombo = tmpChart.maxCombo
         tmp[0].maxDxScore = tmpChart.maxCombo * 3
+        if (tmp[0].dxScore != null) {
+          tmp[0].minusTheoreticalValue = tmp[0].dxScore - tmpChart.maxCombo * 3
+        }
         tmp[0].notes = tmpChart.notes
         tmp[0].songID = tmpChart.musicID
         this.scoreData.splice(aryIndex[0], 1, tmp[0])
@@ -173,6 +176,10 @@ export default class UserName extends Vue {
         const index = tmp.findIndex((v) => v.genre === musicData[0].genre)
         tmp[index].maxCombo = tmpChart.maxCombo
         tmp[index].maxDxScore = tmpChart.maxCombo * 3
+        if (tmp[index].dxScore != null) {
+          tmp[index].minusTheoreticalValue =
+            tmp[index].dxScore! - tmpChart.maxCombo * 3
+        }
         tmp[index].notes = tmpChart.notes
         tmp[index].songID = tmpChart.musicID
         this.scoreData.splice(aryIndex[index], 1, tmp[index])

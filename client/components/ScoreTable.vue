@@ -150,6 +150,11 @@
           </template>
         </td>
       </template>
+      <template v-slot:item.minusTheoreticalValue="{ item }">
+        <td>
+          {{ item.minusTheoreticalValue || '-' }}
+        </td>
+      </template>
       <template v-slot:item.comboRank="{ item }">
         <td>{{ item.comboRank || '-' }}</td>
       </template>
@@ -222,6 +227,7 @@ export default class ScoreTable extends Vue {
     { text: 'ランク', value: 'rank' },
     { text: 'DXスコア', value: 'dxScore' },
     { text: 'DXスコア理論値', value: 'maxDxScore' },
+    { text: 'DXスコア理論値マイナス', value: 'minusTheoreticalValue' },
     { text: 'コンボ', value: 'comboRank' },
     { text: 'SYNC', value: 'sync' }
   ]
@@ -269,6 +275,7 @@ export default class ScoreTable extends Vue {
       'rank',
       'dxScore',
       'maxDxScore',
+      'minusTheoreticalValue',
       'comboRank',
       'sync'
     ]
@@ -329,6 +336,12 @@ export default class ScoreTable extends Vue {
       { text: '達成率', value: 'achievement', width: 135, divider: true },
       { text: 'ランク', value: 'rank', width: 105, divider: true },
       { text: 'DXスコア', value: 'dxScore', width: 150, divider: true },
+      {
+        text: '理論値ﾏｲﾅｽ',
+        value: 'minusTheoreticalValue',
+        width: 130,
+        divider: true
+      },
       { text: 'コンボ', value: 'comboRank', width: 105, divider: true },
       { text: 'SYNC', value: 'sync', width: 105 }
     ]
@@ -397,6 +410,7 @@ export default class ScoreTable extends Vue {
         'rank',
         'dxScore',
         'maxDxScore',
+        'minusTheoreticalValue',
         'comboRank',
         'sync'
       ]
