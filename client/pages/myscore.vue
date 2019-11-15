@@ -14,7 +14,7 @@
 import { Component, Vue } from 'vue-property-decorator'
 import * as Vuex from 'vuex'
 import { db } from '~/plugins/firestore'
-import { ScoreData, GotScoreData } from '~/types'
+import { ScoreData, GotScoreData, MusicData, ChartData } from '~/types'
 @Component({
   head: {
     title: 'マイスコア'
@@ -47,6 +47,10 @@ export default class MyScore extends Vue {
   $store!: Vuex.ExStore
 
   scoreData: ScoreData[] = []
+
+  chartData: ChartData[] = []
+
+  musicData: MusicData[] = []
 
   tableLoadFlg = true
 
@@ -89,7 +93,52 @@ export default class MyScore extends Vue {
           }))
         )
       }
+      const tmpChart = await db
+        .collection('chartData')
+        .doc(difficultyLevel[i])
+        .get()
+      const chartData = tmpChart.data()
+      if (chartData) {
+        this.chartData.push(
+          ...Object.entries(chartData).map(([id, data]) => ({
+            id,
+            ...data
+          }))
+        )
+      } else {
+        break
+      }
     }
+
+    const tmp = await db
+      .collection('musicData')
+      .doc('Master')
+      .get()
+    this.musicData = tmp.data()!.data
+
+    for (let i = 0; i < this.chartData.length; i++) {
+      const tmpChart = this.chartData[i]
+      let aryIndex = -1
+      const tmp = this.scoreData.filter((el, index) => {
+        if (
+          el.title === tmpChart.title &&
+          el.difficultyLevel === tmpChart.difficultyLevel &&
+          el.type === tmpChart.type
+        ) {
+          aryIndex = index
+          return true
+        }
+      })
+
+      if (aryIndex >= 0 && tmp.length === 1) {
+        tmp[0].maxCombo = tmpChart.maxCombo
+        tmp[0].maxDxScore = tmpChart.maxCombo * 3
+        tmp[0].notes = tmpChart.notes
+        tmp[0].songID = tmpChart.musicID
+        this.scoreData.splice(aryIndex, 1, tmp[0])
+      }
+    }
+
     this.tableLoadFlg = false
   }
 }

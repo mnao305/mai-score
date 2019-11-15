@@ -49,6 +49,7 @@ export const state = (): S => ({
       'achievement',
       'rank',
       'dxScore',
+      'maxDxScore',
       'comboRank',
       'sync'
     ]
