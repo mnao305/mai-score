@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "mai-score"
+    "default": "mai-score",
+    "develop": "mai-score-develop"
   }
 }

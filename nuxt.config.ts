@@ -6,6 +6,7 @@ interface nuxtConfg extends Configuration {
 }
 
 const config: nuxtConfg = {
+  dev: process.env.NODE_ENV !== 'production',
   mode: 'universal',
   srcDir: 'client/',
   /*
@@ -111,6 +112,15 @@ const config: nuxtConfg = {
    */
   build: {
     publicPath: '/assets/',
+    templates: [
+      {
+        src: 'client/templates/robots.txt',
+        dst: '../client/static/robots.txt',
+        options: {
+          env: process.env.NODE_ENV
+        }
+      }
+    ],
     /*
      ** You can extend webpack config here
      */

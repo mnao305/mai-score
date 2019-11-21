@@ -145,6 +145,14 @@
       <template v-slot:item.dxScore="{ item }">
         <td>
           {{ item.dxScore || '-' }}
+          <template v-if="showMaxDxScore">
+            / {{ item.maxDxScore || '-' }}
+          </template>
+        </td>
+      </template>
+      <template v-slot:item.minusTheoreticalValue="{ item }">
+        <td>
+          {{ item.minusTheoreticalValue || '-' }}
         </td>
       </template>
       <template v-slot:item.comboRank="{ item }">
@@ -218,6 +226,8 @@ export default class ScoreTable extends Vue {
     { text: '達成率', value: 'achievement' },
     { text: 'ランク', value: 'rank' },
     { text: 'DXスコア', value: 'dxScore' },
+    { text: 'DXスコア理論値', value: 'maxDxScore' },
+    { text: 'DXスコア理論値マイナス', value: 'minusTheoreticalValue' },
     { text: 'コンボ', value: 'comboRank' },
     { text: 'SYNC', value: 'sync' }
   ]
@@ -264,16 +274,21 @@ export default class ScoreTable extends Vue {
       'achievement',
       'rank',
       'dxScore',
+      'maxDxScore',
+      'minusTheoreticalValue',
       'comboRank',
       'sync'
     ]
   }
+
+  showMaxDxScore = true
 
   onFilterOptionChanged() {
     this.$store.commit('user/setFilterOption', this.filterOption)
   }
 
   get shownHeaders() {
+    this.showMaxDxScore = this.filterOption.showColumn.includes('maxDxScore')
     return this.headers.filter((h) =>
       this.filterOption.showColumn.includes(h.value)
     )
@@ -320,7 +335,13 @@ export default class ScoreTable extends Vue {
       },
       { text: '達成率', value: 'achievement', width: 135, divider: true },
       { text: 'ランク', value: 'rank', width: 105, divider: true },
-      { text: 'DXスコア', value: 'dxScore', width: 125, divider: true },
+      { text: 'DXスコア', value: 'dxScore', width: 150, divider: true },
+      {
+        text: '理論値ﾏｲﾅｽ',
+        value: 'minusTheoreticalValue',
+        width: 130,
+        divider: true
+      },
       { text: 'コンボ', value: 'comboRank', width: 105, divider: true },
       { text: 'SYNC', value: 'sync', width: 105 }
     ]
@@ -388,6 +409,8 @@ export default class ScoreTable extends Vue {
         'achievement',
         'rank',
         'dxScore',
+        'maxDxScore',
+        'minusTheoreticalValue',
         'comboRank',
         'sync'
       ]

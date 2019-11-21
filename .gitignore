@@ -90,3 +90,5 @@ mai-score.json
 
 .firebase
 public
+
+client/static/robots.txt
