@@ -37,10 +37,10 @@
     <ol>
       <li>下記テキストをコピー</li>
       <v-textarea
+        :value="bookmarklet"
         class="bookmarklet"
         outlined
         readonly
-        :value="bookmarklet"
       ></v-textarea>
       <li>ブラウザのブックマーク登録ボタンを押す</li>
       <li>ブックマーク編集でURLをコピーしたコードで上書き</li>

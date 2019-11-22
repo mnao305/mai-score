@@ -4,7 +4,6 @@
       :headers="shownHeaders"
       :items="scoreData"
       :search="search"
-      multi-sort
       :mobile-breakpoint="50"
       :score-items="scoreData"
       :items-per-page="50"
@@ -14,6 +13,7 @@
       :loading="tableLoadFlg"
       :sort-desc="[true, false]"
       :custom-filter="customFilterFunc"
+      multi-sort
     >
       <template v-slot:top>
         <v-expansion-panels flat>
@@ -28,11 +28,11 @@
                   v-for="item in difficultyLevelList"
                   :key="item"
                   v-model="filterOption.difficultyLevel"
-                  class="checkbox"
                   :label="item"
                   :value="item"
-                  hide-details
                   @change="onFilterOptionChanged"
+                  class="checkbox"
+                  hide-details
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">ジャンル：</div>
@@ -41,11 +41,11 @@
                   v-for="item in genreList"
                   :key="item"
                   v-model="filterOption.genre"
-                  class="checkbox"
                   :label="item"
                   :value="item"
-                  hide-details
                   @change="onFilterOptionChanged"
+                  class="checkbox"
+                  hide-details
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">レベル：</div>
@@ -54,13 +54,13 @@
                   v-for="item in levelList"
                   :key="item"
                   v-model="filterOption.level"
-                  class="checkbox"
                   :label="
                     `${Math.round(item) === item ? item : `${item - 0.5}+`}`
                   "
                   :value="item"
-                  hide-details
                   @change="onFilterOptionChanged"
+                  class="checkbox"
+                  hide-details
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">譜面タイプ：</div>
@@ -69,11 +69,11 @@
                   v-for="item in typeList"
                   :key="item"
                   v-model="filterOption.type"
-                  class="checkbox"
                   :label="item"
                   :value="item"
-                  hide-details
                   @change="onFilterOptionChanged"
+                  class="checkbox"
+                  hide-details
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">表示カラム：</div>
@@ -82,15 +82,15 @@
                   v-for="item in showColumnList"
                   :key="item.value"
                   v-model="filterOption.showColumn"
-                  class="checkbox"
                   :label="item.text"
                   :value="item.value"
-                  hide-details
                   @change="onFilterOptionChanged"
+                  class="checkbox"
+                  hide-details
                 ></v-checkbox>
               </v-layout>
               <v-layout row class="optionTitle">
-                <v-btn outlined color="indigo" @click="filterReset">
+                <v-btn @click="filterReset" outlined color="indigo">
                   フィルターリセット
                 </v-btn>
               </v-layout>
@@ -179,7 +179,7 @@ export default class ScoreTable extends Vue {
 
   $store!: Vuex.ExStore
 
-  @Prop() readonly tableLoadFlg
+  @Prop() readonly tableLoadFlg!: boolean
 
   difficultyLevelList = ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster']
 
@@ -301,7 +301,7 @@ export default class ScoreTable extends Vue {
         text: 'ジャンル',
         value: 'genre',
         width: 190,
-        filter: (value) => {
+        filter: (value: string) => {
           return this.filterOption.genre.some((v) => v === value)
         },
         divider: true
@@ -310,7 +310,7 @@ export default class ScoreTable extends Vue {
         text: '難易度',
         value: 'difficultyLevel',
         width: 105,
-        filter: (value) => {
+        filter: (value: string) => {
           return this.filterOption.difficultyLevel.some((v) => v === value)
         },
         divider: true
@@ -319,7 +319,7 @@ export default class ScoreTable extends Vue {
         text: 'レベル',
         value: 'level',
         width: 105,
-        filter: (value) => {
+        filter: (value: number) => {
           return this.filterOption.level.some((v) => v === value)
         },
         divider: true
@@ -328,7 +328,7 @@ export default class ScoreTable extends Vue {
         text: '譜面',
         value: 'type',
         width: 95,
-        filter: (value) => {
+        filter: (value: string) => {
           return this.filterOption.type.some((v) => v === value)
         },
         divider: true
@@ -357,7 +357,7 @@ export default class ScoreTable extends Vue {
     }
   }
 
-  customFilterFunc(value, search, item) {
+  customFilterFunc(value: string, search: string | null, item: any) {
     return (
       value != null &&
       value === item.title &&

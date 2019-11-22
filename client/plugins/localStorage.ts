@@ -2,7 +2,7 @@ import createPersistedState from 'vuex-persistedstate'
 import * as Cookies from 'js-cookie'
 import cookie from 'cookie'
 
-export default ({ store, req, isDev }) => {
+export default ({ store, req, isDev }: any) => {
   createPersistedState({
     key: '__session',
     storage: {
