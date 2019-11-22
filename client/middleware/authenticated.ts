@@ -1,4 +1,4 @@
-export default function({ route, store, redirect }) {
+export default function({ route, store, redirect }: any) {
   if (store.state.user.isAuthenticatedFlg && store.state.user.uid) {
     if (
       route.name === 'login' ||

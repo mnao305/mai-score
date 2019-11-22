@@ -4,9 +4,9 @@
       {{ userName }}さんのスコア
       <a
         v-if="publicMode"
+        :href="twitterUrl()"
         class="twitterLink"
         target="_blank"
-        :href="twitterUrl()"
         title="Twitterで共有"
       >
         <i class="mdi mdi-twitter" />Tweet

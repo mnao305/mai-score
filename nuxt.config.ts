@@ -1,3 +1,4 @@
+import colors from 'vuetify/es5/util/colors'
 import { Configuration } from '@nuxt/types'
 require('dotenv').config()
 
@@ -53,31 +54,24 @@ const config: nuxtConfg = {
     { src: '~/plugins/ga.js', ssr: false }
   ],
   /*
-   ** Nuxt.js modules
+   ** Nuxt.js dev-modules
    */
   buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
-    '@nuxt/typescript-build',
-    [
-      '@nuxt/typescript-build',
-      {
-        typeCheck: true,
-        ignoreNotFoundWarnings: true
-      }
-    ]
+    '@nuxt/typescript-build'
   ],
+  /*
+   ** Nuxt.js modules
+   */
   modules: [
+    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv',
     'cookie-universal-nuxt'
-    // [
-    //   '@nuxtjs/google-analytics',
-    //   {
-    //     id: 'UA-57438486-7'
-    //   }
-    // ]
   ],
 
   router: {
@@ -95,7 +89,18 @@ const config: nuxtConfg = {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: false
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
     }
   },
 

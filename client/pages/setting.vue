@@ -12,10 +12,10 @@
         </p>
         <v-text-field
           v-model="displayName"
+          :rules="[rules.name, rules.counter]"
           class="inputDisplayName"
           label="表示名(40文字まで)"
           counter="40"
-          :rules="[rules.name, rules.counter]"
         ></v-text-field>
       </div>
 
@@ -30,8 +30,8 @@
           :rules="[rules.publicData]"
           :mandatory="false"
         >
-          <v-radio label="公開" :value="true"></v-radio>
-          <v-radio label="非公開" :value="false"></v-radio>
+          <v-radio :value="true" label="公開"></v-radio>
+          <v-radio :value="false" label="非公開"></v-radio>
         </v-radio-group>
       </div>
 
@@ -39,23 +39,21 @@
         <h5 class="headline"><i class="mdi mdi-twitter" />Twitter連携</h5>
         <p>画像つきのスコア更新ツイートをするには必須です。</p>
         <v-btn
-          depressed
           :disabled="isTwitterLogin"
+          @click="twitterLogin"
+          depressed
           color="#00b0ed"
           class="white--text"
-          @click="twitterLogin"
         >
           <template v-if="isTwitterLogin">
             Twitter連携済み
           </template>
-          <template v-else>
-            <i class="mdi mdi-twitter" />Twitter連携
-          </template>
+          <template v-else> <i class="mdi mdi-twitter" />Twitter連携 </template>
         </v-btn>
       </div>
 
       <br />
-      <v-btn outlined color="indigo" @click="settingSave">保存</v-btn>
+      <v-btn @click="settingSave" outlined color="indigo">保存</v-btn>
       <p>{{ message }}</p>
     </v-form>
     <Loading v-if="loadFlg" />
@@ -101,13 +99,13 @@ export default class SettingPage extends Vue {
   $store!: Vuex.ExStore
 
   rules = {
-    required: (value) => !!value || '必須項目です',
-    counter: (value) => value.length <= 40 || '表示名は40文字までです',
-    email: (value) => {
+    required: (value: string) => !!value || '必須項目です',
+    counter: (value: string) => value.length <= 40 || '表示名は40文字までです',
+    email: (value: string) => {
       const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return pattern.test(value) || 'メールアドレスの形式が間違っています'
     },
-    name: (value) => {
+    name: (value: string) => {
       const pattern = /^[a-zA-Z0-9]*$/
       return pattern.test(value) || '表示名は英数字である必要があります'
     },

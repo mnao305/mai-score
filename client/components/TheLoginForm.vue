@@ -1,53 +1,53 @@
 <template>
   <v-layout id="TheLoginForm" align-center justify-center column fill-height>
-    <v-btn class="twitterLoginBtn" outlined @click="twitterLogin">
+    <v-btn @click="twitterLogin" class="twitterLoginBtn" outlined>
       Twitterで{{ RegistFlg ? '登録' : 'ログイン' }}
     </v-btn>
     <v-form ref="form" v-model="valid" class="loginRegistForm" lazy-validation>
       <div class="loginForm">
         <v-text-field
           v-model="email"
+          :rules="[rules.required, rules.email]"
           class="loginFormInput"
           label="メールアドレス"
-          :rules="[rules.required, rules.email]"
         ></v-text-field>
         <v-text-field
           v-model="passwd"
-          class="loginFormInput"
-          label="パスワード"
           :rules="[rules.required, rules.counter]"
           :append-icon="showPasswdFlg ? 'visibility' : 'visibility_off'"
           :type="showPasswdFlg ? 'text' : 'password'"
           @click:append="showPasswdFlg = !showPasswdFlg"
+          class="loginFormInput"
+          label="パスワード"
         ></v-text-field>
         <v-text-field
           v-if="RegistFlg"
           v-model="confirmationPasswd"
-          class="loginFormInput"
-          label="パスワード確認"
           :rules="[rules.required, rules.counter, rules.confirmation]"
           :append-icon="showPasswdFlg ? 'visibility' : 'visibility_off'"
           :type="showConfirmationPasswdFlg ? 'text' : 'password'"
           @click:append="showConfirmationPasswdFlg = !showConfirmationPasswdFlg"
+          class="loginFormInput"
+          label="パスワード確認"
         ></v-text-field>
         <v-layout>
           <v-spacer />
           <v-btn
             v-if="RegistFlg"
+            :disabled="!valid"
+            @click="mailRegistration"
             class="mailRegistBtn"
             outlined
             color="indigo"
-            :disabled="!valid"
-            @click="mailRegistration"
             >登録</v-btn
           >
           <v-btn
             v-else
+            :disabled="!valid"
+            @click="mailLogin"
             class="mailLoginBtn"
             outlined
             color="indigo"
-            :disabled="!valid"
-            @click="mailLogin"
             >ログイン</v-btn
           >
         </v-layout>
@@ -86,9 +86,10 @@ export default class TheLoginForm extends Vue {
   showConfirmationPasswdFlg = false
 
   rules = {
-    required: (value) => !!value || '必須項目です',
-    counter: (value) => value.length >= 8 || 'パスワードは8文字以上必要です',
-    email: (value) => {
+    required: (value: string) => !!value || '必須項目です',
+    counter: (value: string) =>
+      value.length >= 8 || 'パスワードは8文字以上必要です',
+    email: (value: string) => {
       const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       return pattern.test(value) || 'メールアドレスの形式が間違っています'
     },
