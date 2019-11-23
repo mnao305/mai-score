@@ -71,8 +71,14 @@ const config: nuxtConfg = {
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module',
     '@nuxtjs/dotenv',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    'nuxt-logrocket'
   ],
+
+  logRocket: {
+    logRocketId: 'vvvq4t/mai-score',
+    devModeAllowed: false
+  },
 
   router: {
     middleware: ['authenticated']
