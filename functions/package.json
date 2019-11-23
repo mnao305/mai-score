@@ -23,7 +23,7 @@
     "vue-property-decorator": "8.3.0",
     "@nuxtjs/vuetify": "1.9.0",
     "vuex-persistedstate": "2.7.0",
-    "nuxt-logrocket": "^1.2.5"
+    "nuxt-logrocket": "1.2.5"
   },
   "devDependencies": {
     "firebase-functions-test": "0.1.7"
