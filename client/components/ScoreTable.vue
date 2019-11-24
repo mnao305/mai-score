@@ -107,62 +107,50 @@
         ></v-text-field>
       </template>
       <template v-slot:item.title="{ item }">
-        <td>
-          <a
-            :href="
-              `https://maimaidx.jp/maimai-mobile/record/musicDetail/?idx=${encodeURIComponent(
-                item.musicID
-              )}`
-            "
-            target="_blank"
-          >
-            {{ item.title }}
-          </a>
-        </td>
+        <a
+          :href="
+            `https://maimaidx.jp/maimai-mobile/record/musicDetail/?idx=${encodeURIComponent(
+              item.musicID
+            )}`
+          "
+          target="_blank"
+        >
+          {{ item.title }}
+        </a>
       </template>
       <template v-slot:item.level="{ item }">
-        <td>
-          {{
-            Math.round(item.level) === item.level
-              ? item.level
-              : `${item.level - 0.5}+`
-          }}
-        </td>
+        {{
+          Math.round(item.level) === item.level
+            ? item.level
+            : `${item.level - 0.5}+`
+        }}
       </template>
       <template v-slot:item.type="{ item }">
-        <td>
-          {{ item.type === 'deluxe' ? 'DX' : 'Std' }}
-        </td>
+        {{ item.type === 'deluxe' ? 'DX' : 'Std' }}
       </template>
       <template v-slot:item.achievement="{ item }">
-        <td>
-          {{ item.achievement != null ? `${item.achievement}%` : '-' }}
-        </td>
+        {{ item.achievement != null ? `${item.achievement}%` : '-' }}
       </template>
       <template v-slot:item.rank="{ item }">
-        <td>{{ item.rank || '-' }}</td>
+        {{ item.rank || '-' }}
       </template>
       <template v-slot:item.dxScore="{ item }">
-        <td>
-          {{ item.dxScore || '-' }}
-          <template v-if="showMaxDxScore">
-            / {{ item.maxDxScore || '-' }}
-          </template>
-        </td>
+        {{ item.dxScore || '-' }}
+        <template v-if="showMaxDxScore">
+          / {{ item.maxDxScore || '-' }}
+        </template>
       </template>
       <template v-slot:item.minusTheoreticalValue="{ item }">
-        <td>
-          {{ item.minusTheoreticalValue || '-' }}
-        </td>
+        {{ item.minusTheoreticalValue || '-' }}
       </template>
       <template v-slot:item.comboRank="{ item }">
-        <td>{{ item.comboRank || '-' }}</td>
+        {{ item.comboRank || '-' }}
       </template>
       <template v-slot:item.sync="{ item }">
-        <td>{{ item.sync || '-' }}</td>
+        {{ item.sync || '-' }}
       </template>
       <template v-slot:item.date="{ item }">
-        <td>{{ formatDate(item.date) }}</td>
+        {{ formatDate(item.date) }}
       </template>
     </v-data-table>
   </div>
