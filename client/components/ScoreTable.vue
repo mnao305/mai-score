@@ -107,59 +107,50 @@
         ></v-text-field>
       </template>
       <template v-slot:item.title="{ item }">
-        <td>
-          <a
-            :href="
-              `https://maimaidx.jp/maimai-mobile/record/musicDetail/?idx=${encodeURIComponent(
-                item.musicID
-              )}`
-            "
-            target="_blank"
-          >
-            {{ item.title }}
-          </a>
-        </td>
+        <a
+          :href="
+            `https://maimaidx.jp/maimai-mobile/record/musicDetail/?idx=${encodeURIComponent(
+              item.musicID
+            )}`
+          "
+          target="_blank"
+        >
+          {{ item.title }}
+        </a>
       </template>
       <template v-slot:item.level="{ item }">
-        <td>
-          {{
-            Math.round(item.level) === item.level
-              ? item.level
-              : `${item.level - 0.5}+`
-          }}
-        </td>
+        {{
+          Math.round(item.level) === item.level
+            ? item.level
+            : `${item.level - 0.5}+`
+        }}
       </template>
       <template v-slot:item.type="{ item }">
-        <td>
-          {{ item.type === 'deluxe' ? 'DX' : 'Std' }}
-        </td>
+        {{ item.type === 'deluxe' ? 'DX' : 'Std' }}
       </template>
       <template v-slot:item.achievement="{ item }">
-        <td>
-          {{ item.achievement != null ? `${item.achievement}%` : '-' }}
-        </td>
+        {{ item.achievement != null ? `${item.achievement}%` : '-' }}
       </template>
       <template v-slot:item.rank="{ item }">
-        <td>{{ item.rank || '-' }}</td>
+        {{ item.rank || '-' }}
       </template>
       <template v-slot:item.dxScore="{ item }">
-        <td>
-          {{ item.dxScore || '-' }}
-          <template v-if="showMaxDxScore">
-            / {{ item.maxDxScore || '-' }}
-          </template>
-        </td>
+        {{ item.dxScore || '-' }}
+        <template v-if="showMaxDxScore">
+          / {{ item.maxDxScore || '-' }}
+        </template>
       </template>
       <template v-slot:item.minusTheoreticalValue="{ item }">
-        <td>
-          {{ item.minusTheoreticalValue || '-' }}
-        </td>
+        {{ item.minusTheoreticalValue || '-' }}
       </template>
       <template v-slot:item.comboRank="{ item }">
-        <td>{{ item.comboRank || '-' }}</td>
+        {{ item.comboRank || '-' }}
       </template>
       <template v-slot:item.sync="{ item }">
-        <td>{{ item.sync || '-' }}</td>
+        {{ item.sync || '-' }}
+      </template>
+      <template v-slot:item.date="{ item }">
+        {{ formatDate(item.date) }}
       </template>
     </v-data-table>
   </div>
@@ -229,7 +220,8 @@ export default class ScoreTable extends Vue {
     { text: 'DXスコア理論値', value: 'maxDxScore' },
     { text: 'DXスコア理論値マイナス', value: 'minusTheoreticalValue' },
     { text: 'コンボ', value: 'comboRank' },
-    { text: 'SYNC', value: 'sync' }
+    { text: 'SYNC', value: 'sync' },
+    { text: '最終更新', value: 'date' }
   ]
 
   filterOption = {
@@ -277,11 +269,17 @@ export default class ScoreTable extends Vue {
       'maxDxScore',
       'minusTheoreticalValue',
       'comboRank',
-      'sync'
+      'sync',
+      'date'
     ]
   }
 
   showMaxDxScore = true
+
+  formatDate(dateNum: number) {
+    const date = new Date(dateNum)
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+  }
 
   onFilterOptionChanged() {
     this.$store.commit('user/setFilterOption', this.filterOption)
@@ -343,7 +341,8 @@ export default class ScoreTable extends Vue {
         divider: true
       },
       { text: 'コンボ', value: 'comboRank', width: 105, divider: true },
-      { text: 'SYNC', value: 'sync', width: 105 }
+      { text: 'SYNC', value: 'sync', width: 105, divider: true },
+      { text: '最終更新', value: 'date', width: 135 }
     ]
   }
 
@@ -412,7 +411,8 @@ export default class ScoreTable extends Vue {
         'maxDxScore',
         'minusTheoreticalValue',
         'comboRank',
-        'sync'
+        'sync',
+        'date'
       ]
     }
   }

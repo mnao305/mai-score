@@ -51,7 +51,8 @@ export const state = (): S => ({
       'dxScore',
       'maxDxScore',
       'comboRank',
-      'sync'
+      'sync',
+      'date'
     ]
   }
 })
