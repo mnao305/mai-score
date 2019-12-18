@@ -36,7 +36,7 @@
     "@nuxt/typescript-build": "0.5.2",
     "@nuxtjs/eslint-config": "0.0.1",
     "@nuxtjs/eslint-config-typescript": "1.0.0",
-    "@nuxtjs/eslint-module": "0.2.1",
+    "@nuxtjs/eslint-module": "1.1.0",
     "@nuxtjs/vuetify": "1.9.1",
     "@types/js-cookie": "2.2.4",
     "@typescript-eslint/eslint-plugin": "1.13.0",
