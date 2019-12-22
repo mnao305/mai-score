@@ -7,6 +7,7 @@ export interface S {
   filterOption: {
     difficultyLevel: string[]
     genre: string[]
+    version: string[]
     level: number[]
     type: string[]
     showColumn: string[]

@@ -16,6 +16,22 @@ export const state = (): S => ({
       'オリジナル',
       'POPS＆アニメ'
     ],
+    version: [
+      'maimai',
+      'maimai_PLUS',
+      'GreeN',
+      'GreeN_PLUS',
+      'ORANGE',
+      'ORANGE_PLUS',
+      'PiNK',
+      'PiNK_PLUS',
+      'MURASAKi',
+      'MURASAKi_PLUS',
+      'MiLK',
+      'MiLK_PLUS',
+      'FiNALE',
+      'maimaiでらっくす'
+    ],
     level: [
       1,
       2,
@@ -43,6 +59,7 @@ export const state = (): S => ({
     showColumn: [
       'title',
       'genre',
+      'version',
       'difficultyLevel',
       'level',
       'type',
