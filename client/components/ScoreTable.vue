@@ -30,9 +30,22 @@
                   v-model="filterOption.difficultyLevel"
                   :label="item"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
+                ></v-checkbox>
+              </v-layout>
+              <div class="optionTitle">バージョン：</div>
+              <v-layout class="versionOption" row>
+                <v-checkbox
+                  v-for="item in versionList"
+                  :key="item"
+                  v-model="filterOption.version"
+                  :label="item.replace('_', ' ')"
+                  :value="item"
+                  class="checkbox"
+                  hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">ジャンル：</div>
@@ -43,9 +56,9 @@
                   v-model="filterOption.genre"
                   :label="item"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">レベル：</div>
@@ -58,9 +71,9 @@
                     `${Math.round(item) === item ? item : `${item - 0.5}+`}`
                   "
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">譜面タイプ：</div>
@@ -71,9 +84,9 @@
                   v-model="filterOption.type"
                   :label="item"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">表示カラム：</div>
@@ -84,13 +97,13 @@
                   v-model="filterOption.showColumn"
                   :label="item.text"
                   :value="item.value"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <v-layout row class="optionTitle">
-                <v-btn @click="filterReset" outlined color="indigo">
+                <v-btn outlined color="indigo" @click="filterReset">
                   フィルターリセット
                 </v-btn>
               </v-layout>
@@ -117,6 +130,9 @@
         >
           {{ item.title }}
         </a>
+      </template>
+      <template v-slot:item.version="{ item }">
+        {{ item.version.replace('_', ' ') }}
       </template>
       <template v-slot:item.level="{ item }">
         {{
@@ -174,6 +190,23 @@ export default class ScoreTable extends Vue {
 
   difficultyLevelList = ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster']
 
+  versionList = [
+    'maimai',
+    'maimai_PLUS',
+    'GreeN',
+    'GreeN_PLUS',
+    'ORANGE',
+    'ORANGE_PLUS',
+    'PiNK',
+    'PiNK_PLUS',
+    'MURASAKi',
+    'MURASAKi_PLUS',
+    'MiLK',
+    'MiLK_PLUS',
+    'FiNALE',
+    'maimaiでらっくす'
+  ]
+
   genreList = [
     'niconico＆ボーカロイド',
     '東方Project',
@@ -211,6 +244,7 @@ export default class ScoreTable extends Vue {
   showColumnList = [
     { text: 'タイトル', value: 'title' },
     { text: 'ジャンル', value: 'genre' },
+    { text: 'バージョン', value: 'version' },
     { text: '難易度', value: 'difficultyLevel' },
     { text: 'レベル', value: 'level' },
     { text: '譜面', value: 'type' },
@@ -226,6 +260,22 @@ export default class ScoreTable extends Vue {
 
   filterOption = {
     difficultyLevel: ['Basic', 'Advanced', 'Expert', 'Master', 'ReMaster'],
+    version: [
+      'maimai',
+      'maimai_PLUS',
+      'GreeN',
+      'GreeN_PLUS',
+      'ORANGE',
+      'ORANGE_PLUS',
+      'PiNK',
+      'PiNK_PLUS',
+      'MURASAKi',
+      'MURASAKi_PLUS',
+      'MiLK',
+      'MiLK_PLUS',
+      'FiNALE',
+      'maimaiでらっくす'
+    ],
     genre: [
       'niconico＆ボーカロイド',
       '東方Project',
@@ -260,6 +310,7 @@ export default class ScoreTable extends Vue {
     showColumn: [
       'title',
       'genre',
+      'version',
       'difficultyLevel',
       'level',
       'type',
@@ -301,6 +352,15 @@ export default class ScoreTable extends Vue {
         width: 190,
         filter: (value: string) => {
           return this.filterOption.genre.some((v) => v === value)
+        },
+        divider: true
+      },
+      {
+        text: 'バージョン',
+        value: 'version',
+        width: 150,
+        filter: (value: string) => {
+          return this.filterOption.version.some((v) => v === value)
         },
         divider: true
       },
@@ -375,6 +435,22 @@ export default class ScoreTable extends Vue {
         'オリジナル',
         'POPS＆アニメ'
       ],
+      version: [
+        'maimai',
+        'maimai_PLUS',
+        'GreeN',
+        'GreeN_PLUS',
+        'ORANGE',
+        'ORANGE_PLUS',
+        'PiNK',
+        'PiNK_PLUS',
+        'MURASAKi',
+        'MURASAKi_PLUS',
+        'MiLK',
+        'MiLK_PLUS',
+        'FiNALE',
+        'maimaiでらっくす'
+      ],
       type: ['deluxe', 'standard'],
       level: [
         1,
@@ -402,6 +478,7 @@ export default class ScoreTable extends Vue {
       showColumn: [
         'title',
         'genre',
+        'version',
         'difficultyLevel',
         'level',
         'type',

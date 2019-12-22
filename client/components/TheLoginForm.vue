@@ -1,6 +1,6 @@
 <template>
   <v-layout id="TheLoginForm" align-center justify-center column fill-height>
-    <v-btn @click="twitterLogin" class="twitterLoginBtn" outlined>
+    <v-btn class="twitterLoginBtn" outlined @click="twitterLogin">
       Twitterで{{ RegistFlg ? '登録' : 'ログイン' }}
     </v-btn>
     <v-form ref="form" v-model="valid" class="loginRegistForm" lazy-validation>
@@ -16,9 +16,9 @@
           :rules="[rules.required, rules.counter]"
           :append-icon="showPasswdFlg ? 'visibility' : 'visibility_off'"
           :type="showPasswdFlg ? 'text' : 'password'"
-          @click:append="showPasswdFlg = !showPasswdFlg"
           class="loginFormInput"
           label="パスワード"
+          @click:append="showPasswdFlg = !showPasswdFlg"
         ></v-text-field>
         <v-text-field
           v-if="RegistFlg"
@@ -26,28 +26,28 @@
           :rules="[rules.required, rules.counter, rules.confirmation]"
           :append-icon="showPasswdFlg ? 'visibility' : 'visibility_off'"
           :type="showConfirmationPasswdFlg ? 'text' : 'password'"
-          @click:append="showConfirmationPasswdFlg = !showConfirmationPasswdFlg"
           class="loginFormInput"
           label="パスワード確認"
+          @click:append="showConfirmationPasswdFlg = !showConfirmationPasswdFlg"
         ></v-text-field>
         <v-layout>
           <v-spacer />
           <v-btn
             v-if="RegistFlg"
             :disabled="!valid"
-            @click="mailRegistration"
             class="mailRegistBtn"
             outlined
             color="indigo"
+            @click="mailRegistration"
             >登録</v-btn
           >
           <v-btn
             v-else
             :disabled="!valid"
-            @click="mailLogin"
             class="mailLoginBtn"
             outlined
             color="indigo"
+            @click="mailLogin"
             >ログイン</v-btn
           >
         </v-layout>

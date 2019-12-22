@@ -40,10 +40,10 @@
         <p>画像つきのスコア更新ツイートをするには必須です。</p>
         <v-btn
           :disabled="isTwitterLogin"
-          @click="twitterLogin"
           depressed
           color="#00b0ed"
           class="white--text"
+          @click="twitterLogin"
         >
           <template v-if="isTwitterLogin">
             Twitter連携済み
@@ -53,7 +53,7 @@
       </div>
 
       <br />
-      <v-btn @click="settingSave" outlined color="indigo">保存</v-btn>
+      <v-btn outlined color="indigo" @click="settingSave">保存</v-btn>
       <p>{{ message }}</p>
     </v-form>
     <Loading v-if="loadFlg" />
