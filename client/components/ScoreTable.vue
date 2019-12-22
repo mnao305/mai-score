@@ -30,9 +30,9 @@
                   v-model="filterOption.difficultyLevel"
                   :label="item"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">バージョン：</div>
@@ -43,9 +43,9 @@
                   v-model="filterOption.version"
                   :label="item.replace('_', ' ')"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">ジャンル：</div>
@@ -56,9 +56,9 @@
                   v-model="filterOption.genre"
                   :label="item"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">レベル：</div>
@@ -71,9 +71,9 @@
                     `${Math.round(item) === item ? item : `${item - 0.5}+`}`
                   "
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">譜面タイプ：</div>
@@ -84,9 +84,9 @@
                   v-model="filterOption.type"
                   :label="item"
                   :value="item"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <div class="optionTitle">表示カラム：</div>
@@ -97,13 +97,13 @@
                   v-model="filterOption.showColumn"
                   :label="item.text"
                   :value="item.value"
-                  @change="onFilterOptionChanged"
                   class="checkbox"
                   hide-details
+                  @change="onFilterOptionChanged"
                 ></v-checkbox>
               </v-layout>
               <v-layout row class="optionTitle">
-                <v-btn @click="filterReset" outlined color="indigo">
+                <v-btn outlined color="indigo" @click="filterReset">
                   フィルターリセット
                 </v-btn>
               </v-layout>

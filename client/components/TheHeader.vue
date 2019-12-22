@@ -1,12 +1,12 @@
 <template>
   <v-app-bar clipped-left color="cyan lighten-4" app>
-    <v-toolbar-title @click="$router.push('/')" style="cursor: pointer;"
+    <v-toolbar-title style="cursor: pointer;" @click="$router.push('/')"
       >舞スコア</v-toolbar-title
     >
     <v-spacer />
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
-        <v-btn slot="activator" v-on="on" icon>
+        <v-btn slot="activator" icon v-on="on">
           <v-icon>more_vert</v-icon>
         </v-btn>
       </template>

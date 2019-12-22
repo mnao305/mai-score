@@ -7,19 +7,19 @@
     </p>
     <div class="indexBtns">
       <v-btn
-        @click="$router.push('/login')"
         class="loginRegistBtn"
         outlined
         color="cyan darken-4"
+        @click="$router.push('/login')"
       >
         ログイン
       </v-btn>
       <br />
       <v-btn
-        @click="$router.push('/regist')"
         class="loginRegistBtn"
         outlined
         color="cyan darken-4"
+        @click="$router.push('/regist')"
       >
         登録
       </v-btn>
