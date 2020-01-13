@@ -129,6 +129,7 @@ export const actions: Actions<S, A, G, M> = {
             userID: user.uid,
             email: user.email,
             providerData,
+            isDXScoreOnTheTweetImg: true, // デフォルトで画像にでらっくスコアのみの更新でも乗っける
             _createdAt: date,
             _updateAt: date
           })
