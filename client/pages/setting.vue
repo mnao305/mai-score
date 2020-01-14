@@ -90,7 +90,6 @@ interface publicUserData {
   async asyncData({ store }) {
     let displayName = ''
     let publicData = false
-    let isDXScoreNotOnTheTweetImg = false
 
     try {
       const doc = await db
@@ -107,30 +106,9 @@ interface publicUserData {
       console.error(error)
     }
 
-    try {
-      const doc = await db
-        .collection('users')
-        .doc(store.state.user.uid)
-        .collection('secure')
-        .doc(store.state.user.uid)
-        .get()
-
-      if (doc && doc.exists) {
-        const data = (await doc.data()) as {
-          isDXScoreNotOnTheTweetImg?: boolean
-        }
-        isDXScoreNotOnTheTweetImg =
-          data.isDXScoreNotOnTheTweetImg != null
-            ? data.isDXScoreNotOnTheTweetImg
-            : false
-      }
-    } catch (error) {
-      console.error(error)
-    }
     return {
       displayName,
-      publicData,
-      isDXScoreNotOnTheTweetImg
+      publicData
     }
   }
 })
@@ -183,6 +161,29 @@ export default class SettingPage extends Vue {
         await this.$store.dispatch('user/saveTwitterToken', data.credential)
       }
     }
+
+    try {
+      const doc = await db
+        .collection('users')
+        .doc(this.$store.state.user.uid)
+        .collection('secure')
+        .doc(this.$store.state.user.uid)
+        .get()
+
+      if (doc && doc.exists) {
+        const data = (await doc.data()) as {
+          isDXScoreNotOnTheTweetImg?: boolean
+        }
+
+        this.isDXScoreNotOnTheTweetImg =
+          data.isDXScoreNotOnTheTweetImg != null
+            ? data.isDXScoreNotOnTheTweetImg
+            : false
+      }
+    } catch (error) {
+      console.error(error)
+    }
+
     this.loadFlg = false
   }
 
