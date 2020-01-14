@@ -36,6 +36,16 @@
       </div>
 
       <div>
+        <h5 class="headline">
+          <v-icon>mdi-folder-multiple-image</v-icon>スコア更新画像への追加条件
+        </h5>
+        <v-checkbox
+          v-model="isDXScoreNotOnTheTweetImg"
+          label="でらっくスコアの更新があっても、達成率に更新が無ければ画像に追加しない"
+        />
+      </div>
+
+      <div>
         <h5 class="headline"><i class="mdi mdi-twitter" />Twitter連携</h5>
         <p>画像つきのスコア更新ツイートをするには必須です。</p>
         <v-btn
@@ -78,20 +88,49 @@ interface publicUserData {
     Loading: () => import('~/components/Loading.vue')
   },
   async asyncData({ store }) {
-    const doc = await db
-      .collection('users')
-      .doc(store.state.user.uid)
-      .get()
+    let displayName = ''
+    let publicData = false
+    let isDXScoreNotOnTheTweetImg = false
 
-    if (doc && doc.exists) {
-      const data = (await doc.data()) as publicUserData
-      const displayName = data.displayName
-      const publicData = data.public
+    try {
+      const doc = await db
+        .collection('users')
+        .doc(store.state.user.uid)
+        .get()
 
-      return {
-        displayName,
-        publicData
+      if (doc && doc.exists) {
+        const data = (await doc.data()) as publicUserData
+        displayName = data.displayName
+        publicData = data.public
       }
+    } catch (error) {
+      console.error(error)
+    }
+
+    try {
+      const doc = await db
+        .collection('users')
+        .doc(store.state.user.uid)
+        .collection('secure')
+        .doc(store.state.user.uid)
+        .get()
+
+      if (doc && doc.exists) {
+        const data = (await doc.data()) as {
+          isDXScoreNotOnTheTweetImg?: boolean
+        }
+        isDXScoreNotOnTheTweetImg =
+          data.isDXScoreNotOnTheTweetImg != null
+            ? data.isDXScoreNotOnTheTweetImg
+            : false
+      }
+    } catch (error) {
+      console.error(error)
+    }
+    return {
+      displayName,
+      publicData,
+      isDXScoreNotOnTheTweetImg
     }
   }
 })
@@ -123,6 +162,8 @@ export default class SettingPage extends Vue {
   message = ''
 
   loadFlg = true
+
+  isDXScoreNotOnTheTweetImg = false
 
   get isTwitterLogin(): boolean {
     return this.$store.state.user.providerData.some((v) => {
@@ -185,6 +226,17 @@ export default class SettingPage extends Vue {
           {
             public: this.publicData,
             displayName: this.displayName
+          },
+          { merge: true }
+        )
+      await db
+        .collection('users')
+        .doc(uid)
+        .collection('secure')
+        .doc(uid)
+        .set(
+          {
+            isDXScoreNotOnTheTweetImg: this.isDXScoreNotOnTheTweetImg
           },
           { merge: true }
         )

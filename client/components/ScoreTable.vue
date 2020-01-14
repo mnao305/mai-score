@@ -329,7 +329,7 @@ export default class ScoreTable extends Vue {
 
   formatDate(dateNum: number) {
     const date = new Date(dateNum)
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
   }
 
   onFilterOptionChanged() {
