@@ -4,6 +4,7 @@
     "node": "10"
   },
   "dependencies": {
+    "@nuxt/typescript-runtime": "0.3.8",
     "@nuxtjs/axios": "5.9.3",
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/google-analytics": "2.2.3",
@@ -11,19 +12,17 @@
     "axios": "0.19.1",
     "cookie-universal-nuxt": "2.1.0",
     "express": "4.17.1",
-    "firebase": "7.6.2",
-    "firebase-admin": "8.9.0",
+    "firebase": "7.7.0",
+    "firebase-admin": "8.9.1",
     "firebase-functions": "3.3.0",
-    "firebase-tools": "7.11.0",
+    "firebase-tools": "7.12.1",
     "js-cookie": "2.2.1",
-    "@nuxt/typescript-runtime": "0.3.7",
     "nuxt": "2.11.0",
-    "ts-node": "8.6.1",
+    "nuxt-logrocket": "1.2.5",
+    "ts-node": "8.6.2",
     "twit": "2.2.11",
     "vue-property-decorator": "8.3.0",
-    "@nuxtjs/vuetify": "1.9.1",
-    "vuex-persistedstate": "2.7.0",
-    "nuxt-logrocket": "1.2.5"
+    "vuex-persistedstate": "2.7.0"
   },
   "devDependencies": {
     "firebase-functions-test": "0.1.7"
