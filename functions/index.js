@@ -5,15 +5,11 @@ const app = express()
 
 const nuxt = new Nuxt({ buildDir: '.nuxt', dev: false })
 
-function handleRequest(req, res) {
+app.use(async (req, res) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600')
-  return new Promise((resolve, reject) => {
-    nuxt.render(req, res, (promise) => {
-      promise.then(resolve).catch(reject)
-    })
-  })
-}
+  await nuxt.ready()
+  nuxt.render(req, res)
+})
 
-app.use(handleRequest)
 exports.ssr = functions.https.onRequest(app)
 exports.tweet = functions.https.onRequest(require('./tweet'))
