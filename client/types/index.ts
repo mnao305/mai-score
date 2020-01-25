@@ -22,6 +22,7 @@ export interface GotScoreData {
   songID?: string
   maxDxScore?: number
   minusTheoreticalValue?: number
+  version: string
 }
 
 export interface ScoreData extends GotScoreData {

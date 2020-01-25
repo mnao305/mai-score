@@ -173,7 +173,8 @@ export default class UserName extends Vue {
         const musicData = this.musicData.filter((el) => {
           return el.songID === tmpChart.musicID
         })
-        const index = tmp.findIndex((v) => v.genre === musicData[0].genre)
+        const index = tmp.findIndex((v) => v.version === musicData[0].version)
+
         tmp[index].maxCombo = tmpChart.maxCombo
         tmp[index].maxDxScore = tmpChart.maxCombo * 3
         if (tmp[index].dxScore != null) {
