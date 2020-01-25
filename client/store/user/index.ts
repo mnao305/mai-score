@@ -12,9 +12,9 @@ export const state = (): S => ({
     genre: [
       'niconico＆ボーカロイド',
       '東方Project',
-      'ゲーム&バラエティ',
+      'ゲーム＆バラエティ',
       'maimai',
-      'オンゲキ&CHUNITHM',
+      'オンゲキ＆CHUNITHM',
       'POPS＆アニメ'
     ],
     version: [

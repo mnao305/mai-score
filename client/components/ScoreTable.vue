@@ -211,9 +211,9 @@ export default class ScoreTable extends Vue {
   genreList = [
     'niconico＆ボーカロイド',
     '東方Project',
-    'ゲーム&バラエティ',
+    'ゲーム＆バラエティ',
     'maimai',
-    'オンゲキ&CHUNITHM',
+    'オンゲキ＆CHUNITHM',
     'POPS＆アニメ'
   ]
 
@@ -284,9 +284,9 @@ export default class ScoreTable extends Vue {
     genre: [
       'niconico＆ボーカロイド',
       '東方Project',
-      'ゲーム&バラエティ',
+      'ゲーム＆バラエティ',
       'maimai',
-      'オンゲキ&CHUNITHM',
+      'オンゲキ＆CHUNITHM',
       'POPS＆アニメ'
     ],
     type: ['deluxe', 'standard'],
@@ -439,9 +439,9 @@ export default class ScoreTable extends Vue {
       genre: [
         'niconico＆ボーカロイド',
         '東方Project',
-        'ゲーム&バラエティ',
+        'ゲーム＆バラエティ',
         'maimai',
-        'オンゲキ&CHUNITHM',
+        'オンゲキ＆CHUNITHM',
         'POPS＆アニメ'
       ],
       version: [
