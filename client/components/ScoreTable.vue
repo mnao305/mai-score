@@ -204,14 +204,16 @@ export default class ScoreTable extends Vue {
     'MiLK',
     'MiLK_PLUS',
     'FiNALE',
-    'maimaiでらっくす'
+    'maimaiでらっくす',
+    'maimaiでらっくす_PLUS'
   ]
 
   genreList = [
     'niconico＆ボーカロイド',
     '東方Project',
-    'バラエティ',
-    'オリジナル',
+    'ゲーム＆バラエティ',
+    'maimai',
+    'オンゲキ＆CHUNITHM',
     'POPS＆アニメ'
   ]
 
@@ -236,7 +238,9 @@ export default class ScoreTable extends Vue {
     12.5,
     13,
     13.5,
-    14
+    14,
+    14.5,
+    15
   ]
 
   typeList = ['deluxe', 'standard']
@@ -274,13 +278,15 @@ export default class ScoreTable extends Vue {
       'MiLK',
       'MiLK_PLUS',
       'FiNALE',
-      'maimaiでらっくす'
+      'maimaiでらっくす',
+      'maimaiでらっくす_PLUS'
     ],
     genre: [
       'niconico＆ボーカロイド',
       '東方Project',
-      'バラエティ',
-      'オリジナル',
+      'ゲーム＆バラエティ',
+      'maimai',
+      'オンゲキ＆CHUNITHM',
       'POPS＆アニメ'
     ],
     type: ['deluxe', 'standard'],
@@ -305,7 +311,9 @@ export default class ScoreTable extends Vue {
       12.5,
       13,
       13.5,
-      14
+      14,
+      14.5,
+      15
     ],
     showColumn: [
       'title',
@@ -431,8 +439,9 @@ export default class ScoreTable extends Vue {
       genre: [
         'niconico＆ボーカロイド',
         '東方Project',
-        'バラエティ',
-        'オリジナル',
+        'ゲーム＆バラエティ',
+        'maimai',
+        'オンゲキ＆CHUNITHM',
         'POPS＆アニメ'
       ],
       version: [
@@ -449,7 +458,8 @@ export default class ScoreTable extends Vue {
         'MiLK',
         'MiLK_PLUS',
         'FiNALE',
-        'maimaiでらっくす'
+        'maimaiでらっくす',
+        'maimaiでらっくす_PLUS'
       ],
       type: ['deluxe', 'standard'],
       level: [
@@ -473,7 +483,9 @@ export default class ScoreTable extends Vue {
         12.5,
         13,
         13.5,
-        14
+        14,
+        14.5,
+        15
       ],
       showColumn: [
         'title',

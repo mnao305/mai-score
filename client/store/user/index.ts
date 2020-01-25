@@ -12,8 +12,9 @@ export const state = (): S => ({
     genre: [
       'niconico＆ボーカロイド',
       '東方Project',
-      'バラエティ',
-      'オリジナル',
+      'ゲーム＆バラエティ',
+      'maimai',
+      'オンゲキ＆CHUNITHM',
       'POPS＆アニメ'
     ],
     version: [
@@ -30,7 +31,8 @@ export const state = (): S => ({
       'MiLK',
       'MiLK_PLUS',
       'FiNALE',
-      'maimaiでらっくす'
+      'maimaiでらっくす',
+      'maimaiでらっくす_PLUS'
     ],
     level: [
       1,
@@ -53,7 +55,9 @@ export const state = (): S => ({
       12.5,
       13,
       13.5,
-      14
+      14,
+      14.5,
+      15
     ],
     type: ['deluxe', 'standard'],
     showColumn: [
