@@ -66,17 +66,19 @@ export default class MyScore extends Vue {
       return
     }
     for (let i = 0; i < difficultyLevel.length; i++) {
-      let doc
-      try {
-        doc = await db
+      const [doc, tmpChart] = await Promise.all([
+        db
           .collection('users')
           .doc(this.$store.state.user.uid)
           .collection('scores')
           .doc(difficultyLevel[i])
+          .get(),
+        db
+          .collection('chartData')
+          .doc(difficultyLevel[i])
           .get()
-      } catch (error) {
-        console.error(error)
-      }
+      ])
+      const chartData = tmpChart.data()
 
       if (doc && doc.exists) {
         const data = (await doc.data()) as GotScoreData[]
@@ -93,11 +95,6 @@ export default class MyScore extends Vue {
           }))
         )
       }
-      const tmpChart = await db
-        .collection('chartData')
-        .doc(difficultyLevel[i])
-        .get()
-      const chartData = tmpChart.data()
       if (chartData) {
         this.chartData.push(
           ...Object.entries(chartData).map(([id, data]) => ({

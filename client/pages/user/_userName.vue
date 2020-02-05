@@ -92,11 +92,18 @@ export default class UserName extends Vue {
         this.$store.state.user.uid === docs.id)
     ) {
       for (let i = 0; i < difficultyLevel.length; i++) {
-        const tmp = await docs.ref
-          .collection('scores')
-          .doc(difficultyLevel[i])
-          .get()
+        const [tmp, tmpChart] = await Promise.all([
+          docs.ref
+            .collection('scores')
+            .doc(difficultyLevel[i])
+            .get(),
+          db
+            .collection('chartData')
+            .doc(difficultyLevel[i])
+            .get()
+        ])
         const data = tmp.data() as GotScoreData[]
+        const chartData = tmpChart.data()
         if (data) {
           tmpScoreData.push(
             ...Object.entries(data).map(([id, data]) => ({
@@ -113,11 +120,6 @@ export default class UserName extends Vue {
         } else {
           break
         }
-        const tmpChart = await db
-          .collection('chartData')
-          .doc(difficultyLevel[i])
-          .get()
-        const chartData = tmpChart.data()
         if (chartData) {
           tmpChartData.push(
             ...Object.entries(chartData).map(([id, data]) => ({
