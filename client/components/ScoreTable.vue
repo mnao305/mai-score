@@ -132,7 +132,7 @@
         </a>
       </template>
       <template v-slot:item.version="{ item }">
-        {{ item.version.replace('_', ' ') }}
+        {{ item.version ? item.version.replace('_', ' ') : '' }}
       </template>
       <template v-slot:item.level="{ item }">
         {{
@@ -368,7 +368,7 @@ export default class ScoreTable extends Vue {
         value: 'version',
         width: 150,
         filter: (value: string) => {
-          return this.filterOption.version.some((v) => v === value)
+          return !value || this.filterOption.version.some((v) => v === value)
         },
         divider: true
       },
