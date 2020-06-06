@@ -59,7 +59,7 @@
     "eslint-plugin-vue": "6.1.2",
     "jest": "24.9.0",
     "node-sass": "4.13.1",
-    "nodemon": "1.19.4",
+    "nodemon": "2.0.4",
     "prettier": "1.19.1",
     "sass": "1.24.5",
     "sass-loader": "7.3.1",
