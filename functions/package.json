@@ -16,7 +16,7 @@
     "firebase": "7.15.0",
     "firebase-admin": "8.12.1",
     "firebase-functions": "3.6.2",
-    "firebase-tools": "7.16.2",
+    "firebase-tools": "8.4.2",
     "js-cookie": "2.2.1",
     "nuxt": "2.12.2",
     "nuxt-logrocket": "1.2.10",
