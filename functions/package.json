@@ -4,7 +4,7 @@
     "node": "10"
   },
   "dependencies": {
-    "@nuxt/typescript-runtime": "0.4.8",
+    "@nuxt/typescript-runtime": "0.4.9",
     "@nuxtjs/axios": "5.11.0",
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/google-analytics": "2.3.0",
@@ -15,7 +15,7 @@
     "express": "4.17.1",
     "firebase": "7.15.0",
     "firebase-admin": "8.12.1",
-    "firebase-functions": "3.6.2",
+    "firebase-functions": "3.7.0",
     "firebase-tools": "8.4.2",
     "js-cookie": "2.2.1",
     "nuxt": "2.12.2",
