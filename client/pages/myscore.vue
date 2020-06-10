@@ -66,17 +66,19 @@ export default class MyScore extends Vue {
       return
     }
     for (let i = 0; i < difficultyLevel.length; i++) {
-      let doc
-      try {
-        doc = await db
+      const [doc, tmpChart] = await Promise.all([
+        db
           .collection('users')
           .doc(this.$store.state.user.uid)
           .collection('scores')
           .doc(difficultyLevel[i])
+          .get(),
+        db
+          .collection('chartData')
+          .doc(difficultyLevel[i])
           .get()
-      } catch (error) {
-        console.error(error)
-      }
+      ])
+      const chartData = tmpChart.data()
 
       if (doc && doc.exists) {
         const data = (await doc.data()) as GotScoreData[]
@@ -93,11 +95,6 @@ export default class MyScore extends Vue {
           }))
         )
       }
-      const tmpChart = await db
-        .collection('chartData')
-        .doc(difficultyLevel[i])
-        .get()
-      const chartData = tmpChart.data()
       if (chartData) {
         this.chartData.push(
           ...Object.entries(chartData).map(([id, data]) => ({
@@ -118,10 +115,10 @@ export default class MyScore extends Vue {
 
     for (let i = 0; i < this.chartData.length; i++) {
       const tmpChart = this.chartData[i]
-      const aryIndex: number[] = []
-      const tmp = this.scoreData.filter((el, index) => {
+      let aryIndex: number[] = []
+      const tmp = this.scoreData.find((el, index) => {
         if (
-          el.title === tmpChart.title &&
+          el.songID === tmpChart.musicID &&
           el.difficultyLevel === tmpChart.difficultyLevel &&
           el.type === tmpChart.type
         ) {
@@ -129,30 +126,46 @@ export default class MyScore extends Vue {
           return true
         }
       })
-
-      if (aryIndex.length === 1 && tmp.length === 1) {
-        tmp[0].maxCombo = tmpChart.maxCombo
-        tmp[0].maxDxScore = tmpChart.maxCombo * 3
-        if (tmp[0].dxScore != null) {
-          tmp[0].minusTheoreticalValue = tmp[0].dxScore - tmpChart.maxCombo * 3
+      if (tmp) {
+        // songIDで一致できた場合
+        tmp.maxCombo = tmpChart.maxCombo
+        tmp.maxDxScore = tmpChart.maxCombo * 3
+        if (tmp.dxScore != null) {
+          tmp.minusTheoreticalValue = tmp.dxScore - tmpChart.maxCombo * 3
         }
-        tmp[0].notes = tmpChart.notes
-        tmp[0].songID = tmpChart.musicID
-        this.scoreData.splice(aryIndex[0], 1, tmp[0])
-      } else if (aryIndex.length > 1 && tmp.length > 1) {
-        const musicData = this.musicData.filter((el) => {
-          return el.songID === tmpChart.musicID
+        tmp.notes = tmpChart.notes
+        tmp.songID = tmpChart.musicID
+        this.scoreData.splice(aryIndex[0], 1, tmp)
+      } else {
+        // songIDで一致できなかった場合
+        aryIndex = []
+        const filteredScoreData = this.scoreData.filter((el, index) => {
+          if (
+            el.title === tmpChart.title &&
+            el.difficultyLevel === tmpChart.difficultyLevel &&
+            el.type === tmpChart.type
+          ) {
+            aryIndex.push(index)
+            return true
+          }
         })
-        const index = tmp.findIndex((v) => v.version === musicData[0].version)
-        tmp[index].maxCombo = tmpChart.maxCombo
-        tmp[index].maxDxScore = tmpChart.maxCombo * 3
-        if (tmp[index].dxScore != null) {
-          tmp[index].minusTheoreticalValue =
-            tmp[index].dxScore! - tmpChart.maxCombo * 3
+        if (filteredScoreData.length === 1) {
+          // タイトルで一致できた場合
+          const scoreData = filteredScoreData[0]
+          scoreData.maxCombo = tmpChart.maxCombo
+          scoreData.maxDxScore = tmpChart.maxCombo * 3
+          if (scoreData.dxScore != null) {
+            scoreData.minusTheoreticalValue =
+              scoreData.dxScore - tmpChart.maxCombo * 3
+          }
+          scoreData.notes = tmpChart.notes
+          scoreData.songID = tmpChart.musicID
+
+          this.scoreData.splice(aryIndex[0], 1, scoreData)
+        } else {
+          // 1つも一致しなかったか、タイトルのみで一致できなかった場合
+          // まぁスキップかな
         }
-        tmp[index].notes = tmpChart.notes
-        tmp[index].songID = tmpChart.musicID
-        this.scoreData.splice(aryIndex[index], 1, tmp[index])
       }
     }
 
