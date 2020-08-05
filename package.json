@@ -62,7 +62,7 @@
     "nodemon": "2.0.4",
     "prettier": "1.19.1",
     "sass": "1.26.8",
-    "sass-loader": "8.0.2",
+    "sass-loader": "9.0.3",
     "vue-jest": "3.0.5"
   }
 }
