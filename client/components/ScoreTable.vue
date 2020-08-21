@@ -357,7 +357,6 @@ export default class ScoreTable extends Vue {
       {
         text: 'ジャンル',
         value: 'genre',
-        width: 190,
         filter: (value: string) => {
           return this.filterOption.genre.some((v) => v === value)
         },
@@ -366,7 +365,6 @@ export default class ScoreTable extends Vue {
       {
         text: 'バージョン',
         value: 'version',
-        width: 150,
         filter: (value: string) => {
           return !value || this.filterOption.version.some((v) => v === value)
         },
@@ -375,7 +373,6 @@ export default class ScoreTable extends Vue {
       {
         text: '難易度',
         value: 'difficultyLevel',
-        width: 105,
         filter: (value: string) => {
           return this.filterOption.difficultyLevel.some((v) => v === value)
         },
@@ -384,7 +381,6 @@ export default class ScoreTable extends Vue {
       {
         text: 'レベル',
         value: 'level',
-        width: 105,
         filter: (value: number) => {
           return this.filterOption.level.some((v) => v === value)
         },
@@ -393,24 +389,22 @@ export default class ScoreTable extends Vue {
       {
         text: '譜面',
         value: 'type',
-        width: 95,
         filter: (value: string) => {
           return this.filterOption.type.some((v) => v === value)
         },
         divider: true
       },
-      { text: '達成率', value: 'achievement', width: 135, divider: true },
-      { text: 'ランク', value: 'rank', width: 105, divider: true },
-      { text: 'DXスコア', value: 'dxScore', width: 150, divider: true },
+      { text: '達成率', value: 'achievement', divider: true },
+      { text: 'ランク', value: 'rank', divider: true },
+      { text: 'DXスコア', value: 'dxScore', divider: true },
       {
         text: '理論値ﾏｲﾅｽ',
         value: 'minusTheoreticalValue',
-        width: 130,
         divider: true
       },
-      { text: 'コンボ', value: 'comboRank', width: 105, divider: true },
-      { text: 'SYNC', value: 'sync', width: 105, divider: true },
-      { text: '最終更新', value: 'date', width: 135 }
+      { text: 'コンボ', value: 'comboRank', divider: true },
+      { text: 'SYNC', value: 'sync', divider: true },
+      { text: '最終更新', value: 'date' }
     ]
   }
 
@@ -513,6 +507,10 @@ export default class ScoreTable extends Vue {
   .scoreSearch {
     max-width: 400px;
     margin: 0 0 15px auto;
+  }
+
+  table > thead > tr > th {
+    white-space: nowrap;
   }
 
   table > tbody > tr:nth-child(odd) {
