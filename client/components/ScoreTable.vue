@@ -3,7 +3,6 @@
     <v-data-table
       :headers="shownHeaders"
       :items="scoreData"
-      :search="search"
       :mobile-breakpoint="50"
       :score-items="scoreData"
       :items-per-page="50"
@@ -12,7 +11,6 @@
       }"
       :loading="tableLoadFlg"
       :sort-desc="[true, false]"
-      :custom-filter="customFilterFunc"
       multi-sort
     >
       <template v-slot:top>
@@ -353,7 +351,14 @@ export default class ScoreTable extends Vue {
 
   get headers() {
     return [
-      { text: 'タイトル', value: 'title', divider: true },
+      {
+        text: 'タイトル',
+        value: 'title',
+        divider: true,
+        filter: (value: string) => {
+          return this.search === '' || value.includes(this.search)
+        }
+      },
       {
         text: 'ジャンル',
         value: 'genre',
@@ -416,15 +421,6 @@ export default class ScoreTable extends Vue {
         JSON.stringify(this.$store.state.user.filterOption)
       )
     }
-  }
-
-  customFilterFunc(value: string, search: string | null, item: any) {
-    return (
-      value != null &&
-      value === item.title &&
-      search != null &&
-      value.includes(search)
-    )
   }
 
   filterReset() {
