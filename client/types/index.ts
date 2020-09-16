@@ -71,4 +71,6 @@ export interface MusicData {
     | 'MiLK_PLUS'
     | 'FiNALE'
     | 'maimaiでらっくす'
+    | 'maimaiでらっくす_PLUS'
+    | 'Splash'
 }
