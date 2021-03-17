@@ -204,7 +204,8 @@ export default class ScoreTable extends Vue {
     'FiNALE',
     'maimaiでらっくす',
     'maimaiでらっくす_PLUS',
-    'Splash'
+    'Splash',
+    'Splash_PLUS'
   ]
 
   genreList = [
@@ -451,7 +452,8 @@ export default class ScoreTable extends Vue {
         'FiNALE',
         'maimaiでらっくす',
         'maimaiでらっくす_PLUS',
-        'Splash'
+        'Splash',
+        'Splash_PLUS'
       ],
       type: ['deluxe', 'standard'],
       level: [
