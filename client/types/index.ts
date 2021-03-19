@@ -73,4 +73,5 @@ export interface MusicData {
     | 'maimaiでらっくす'
     | 'maimaiでらっくす_PLUS'
     | 'Splash'
+    | 'Splash_PLUS'
 }
