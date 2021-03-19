@@ -14,7 +14,7 @@
     "cookie-universal-nuxt": "2.1.4",
     "express": "4.17.1",
     "firebase": "7.15.0",
-    "firebase-admin": "8.12.1",
+    "firebase-admin": "9.4.2",
     "firebase-functions": "3.7.0",
     "firebase-tools": "8.4.2",
     "js-cookie": "2.2.1",
