@@ -23,7 +23,7 @@
     "ts-node": "8.10.2",
     "twit": "2.2.11",
     "vue-property-decorator": "8.5.1",
-    "vuex-persistedstate": "3.0.1"
+    "vuex-persistedstate": "3.2.0"
   },
   "devDependencies": {
     "firebase-functions-test": "0.2.3"
