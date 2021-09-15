@@ -74,4 +74,5 @@ export interface MusicData {
     | 'maimaiでらっくす_PLUS'
     | 'Splash'
     | 'Splash_PLUS'
+    | 'UNiVERSE'
 }
