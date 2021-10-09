@@ -26,7 +26,7 @@
     "vuex-persistedstate": "3.2.1"
   },
   "devDependencies": {
-    "firebase-functions-test": "0.3.2"
+    "firebase-functions-test": "0.3.3"
   },
   "private": true
 }
