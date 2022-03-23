@@ -75,4 +75,5 @@ export interface MusicData {
     | 'Splash'
     | 'Splash_PLUS'
     | 'UNiVERSE'
+    | 'UNiVERSE PLUS'
 }
