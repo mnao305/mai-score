@@ -207,7 +207,8 @@ export default class ScoreTable extends Vue {
     'Splash',
     'Splash_PLUS',
     'UNiVERSE',
-    'UNiVERSE_PLUS'
+    'UNiVERSE_PLUS',
+    'FESTiVAL'
   ]
 
   genreList = [
@@ -457,7 +458,8 @@ export default class ScoreTable extends Vue {
         'Splash',
         'Splash_PLUS',
         'UNiVERSE',
-        'UNiVERSE_PLUS'
+        'UNiVERSE_PLUS',
+        'FESTiVAL'
       ],
       type: ['deluxe', 'standard'],
       level: [
