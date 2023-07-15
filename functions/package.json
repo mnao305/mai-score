@@ -10,7 +10,7 @@
     "@nuxtjs/google-analytics": "2.4.0",
     "@nuxtjs/pwa": "2.6.0",
     "@nuxtjs/vuetify": "1.12.3",
-    "axios": "0.24.0",
+    "axios": "0.27.2",
     "cookie-universal-nuxt": "2.1.5",
     "express": "4.17.3",
     "firebase": "7.24.0",
