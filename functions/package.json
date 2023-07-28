@@ -22,7 +22,7 @@
     "nuxt-logrocket": "1.5.2",
     "ts-node": "8.10.2",
     "twit": "2.2.11",
-    "vue-property-decorator": "8.5.1",
+    "vue-property-decorator": "9.1.2",
     "vuex-persistedstate": "3.2.1"
   },
   "devDependencies": {
