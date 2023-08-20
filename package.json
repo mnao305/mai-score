@@ -61,7 +61,7 @@
     "node-sass": "7.0.3",
     "nodemon": "2.0.22",
     "prettier": "1.19.1",
-    "sass": "1.63.6",
+    "sass": "1.66.0",
     "sass-loader": "7.3.1",
     "vue-jest": "4.0.1"
   }
